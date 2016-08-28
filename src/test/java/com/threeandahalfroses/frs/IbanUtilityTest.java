@@ -2,7 +2,6 @@ package com.threeandahalfroses.frs;
 
 import com.threeandahalfroses.frs.model.Bank;
 import org.iban4j.Iban;
-import org.iban4j.IbanFormat;
 import org.iban4j.IbanFormatException;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -47,7 +46,7 @@ public class IbanUtilityTest {
         assertNotNull("bank is null", bank);
         assertNotNull("country null", bank.getCountry());
         assertEquals("wrong country", "BE", bank.getCountry().getAlpha2());
-        assertEquals("wrong bank code", "001", bank.getBankId());
+        assertEquals("wrong bank code", "001", bank.getBankCode());
     }
 
     @Test
@@ -56,7 +55,7 @@ public class IbanUtilityTest {
         assertNotNull("bank is null", bank);
         assertNotNull("country null", bank.getCountry());
         assertEquals("wrong country", "DE", bank.getCountry().getAlpha2());
-        assertEquals("wrong bank code", "37040044", bank.getBankId());
+        assertEquals("wrong bank code", "37040044", bank.getBankCode());
     }
 
 }

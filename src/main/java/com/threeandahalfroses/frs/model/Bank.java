@@ -1,23 +1,21 @@
 package com.threeandahalfroses.frs.model;
 
-import java.util.Locale;
-
 /**
  * @author Patrice Kerremans
  * @copyright 2014 Three and a half Roses
  */
 public class Bank {
-    private String bankId;
+    private String bankCode;
     private String label;
     private Country country;
-    public Bank(Country country, String bankId, String label) {
+    public Bank(Country country, String bankCode, String label) {
         this.country = country;
-        this.bankId = bankId;
+        this.bankCode = bankCode;
         this.label = label;
     }
 
-    public String getBankId() {
-        return bankId;
+    public String getBankCode() {
+        return bankCode;
     }
 
     public String getLabel() {
