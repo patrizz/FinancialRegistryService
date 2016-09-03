@@ -25,4 +25,5 @@ public class Bank {
     public Country getCountry() {
         return country;
     }
+
 }

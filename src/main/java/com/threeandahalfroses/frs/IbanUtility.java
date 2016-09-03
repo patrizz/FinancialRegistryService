@@ -3,6 +3,7 @@ package com.threeandahalfroses.frs;
 import com.threeandahalfroses.frs.model.Bank;
 import com.threeandahalfroses.frs.model.Branch;
 import com.threeandahalfroses.frs.model.Country;
+import org.apache.poi.ss.formula.functions.Count;
 import org.iban4j.Iban;
 import org.iban4j.IbanFormat;
 
@@ -26,7 +27,8 @@ public class IbanUtility {
         String label = "-"; //todo look up somewhere
         String alpha2 = iban.getCountryCode().getAlpha2();
         String alpha3 = iban.getCountryCode().getAlpha3();
-        Bank bank = new Bank(new Country(alpha2, alpha3), bankCode, label);
+        Country country = new Country(alpha2, alpha3);
+        Bank bank = new Bank(country, bankCode, label);
         return bank;
     }
 
@@ -37,7 +39,8 @@ public class IbanUtility {
         String label = "-"; //todo look up somewhere
         String alpha2 = iban.getCountryCode().getAlpha2();
         String alpha3 = iban.getCountryCode().getAlpha3();
-        Branch bank = new Branch(new Bank(new Country(alpha2, alpha3), bankCode, label), iban.getBranchCode());
+        Country country = new Country(alpha2, alpha3);
+        Branch bank = new Branch(new Bank(country, bankCode, label), iban.getBranchCode());
         return bank;
     }
 }

@@ -12,6 +12,13 @@ import static org.junit.Assert.*;
  */
 public class IbanUtilityTest {
 
+
+    @Test
+    public void test_getBank_be2() {
+        Iban iban = IbanUtility.getIban("BE10 3101 1234 2345");
+        assertNotNull("iban is null", iban);
+    }
+
     @Test
     public void test_getIban() {
         Iban iban = IbanUtility.getIban("DE89 3704 0044 0532 0130 00");

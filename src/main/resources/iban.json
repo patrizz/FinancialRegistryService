@@ -1,0 +1,78 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2016-09-03T10:27:51Z",
+    "title": "Taahr-Iban-v1"
+  },
+  "host": "glozrhoqo9.execute-api.eu-west-1.amazonaws.com",
+  "basePath": "/dev",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/iban": {
+      "get": {
+        "consumes": [
+          "application/json",
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "Location",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "iban",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Empty",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "302 response",
+            "headers": {
+              "Location": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "302",
+              "responseParameters": {
+                "method.response.header.Location": "integration.response.body.location"
+              }
+            }
+          },
+          "requestTemplates": {
+            "text/html": "{\"iban\" : \"$input.params('iban')\"}",
+            "application/json": "{\"iban\" : \"$input.params('iban')\"}"
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Empty": {
+      "type": "object",
+      "title": "Empty Schema"
+    }
+  }
+}
