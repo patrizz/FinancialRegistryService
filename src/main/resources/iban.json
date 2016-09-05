@@ -67,6 +67,56 @@
           "type": "aws"
         }
       }
+    },
+    "/iban-detail": {
+      "get": {
+        "consumes": [
+          "application/json",
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "iban",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bankCode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Content-Type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            ".*": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "'application/json; charset=utf-8'"
+              }
+            }
+          },
+          "requestTemplates": {
+            "text/html": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}",
+            "application/json": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}"
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban-detail/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
     }
   },
   "definitions": {

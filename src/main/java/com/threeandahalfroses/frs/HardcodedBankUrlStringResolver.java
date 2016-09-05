@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class HardcodedBankUrlStringResolver implements BankUrlStringResolver {
 
+    String baseUrlString = "https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/iban-detail?bankCode=%s&iban=%s";
+
     Map<String, Map> mappings = new HashMap<>();
 
     public HardcodedBankUrlStringResolver() {
@@ -44,10 +46,15 @@ public class HardcodedBankUrlStringResolver implements BankUrlStringResolver {
             if (bankCode != null) {
 
                 String urlString = bankCodeMappings.get(bankCode);
+                urlString = baseUrlString;
                 if (urlString != null) {
                     if (urlString.contains("%s")) {
                         try {
-                            return String.format(urlString, URLEncoder.encode(ibanString, "UTF-8"));
+                            return String.format(
+                                    urlString,
+                                    URLEncoder.encode(bankCode, "UTF-8"),
+                                    URLEncoder.encode(ibanString, "UTF-8")
+                            );
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
