@@ -84,6 +84,12 @@
             <version>2.1.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.jsonld-java</groupId>
+            <artifactId>jsonld-java</artifactId>
+            <version>0.8.3</version>
+        </dependency>
+
 
     </dependencies>
 
