@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
 <title>Financial Registry Service</title>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/slick.css">
 <link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
     
 <body>
@@ -39,35 +42,73 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 text-center rocket-animation-holder">
-                <div class="rocket-animation">
-                    <div class="rocket">
-                        <img src="images/rocket.png" width="136" height="190">
-                        <span class="rocket-line rline1"></span>
-                        <span class="rocket-line rline2"></span>
-                        <span class="rocket-line rline3"></span>
-                    </div>
-                    <div class="cloud cloud1"><img src="images/cloud.png" width="60" height="35"></div>
-                    <div class="cloud cloud2"><img src="images/cloud.png" width="60" height="35"></div>
-                    <div class="cloud cloud3"><img src="images/cloud.png" width="60" height="35"></div>
-                </div>
                 <h1>IBAN made easy<br>
 and useful, finally</h1>
                 <h4>Search an IBAN number's details</h4>
-                <div class="domain-form-holder">
-                    <form id="iban-form">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-9 domain-text-holder">
-                                    <input id="domain-text" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
-                                    <i class="hroc hroc-search-icon"></i>
-                                </div>
-                                <div class="col-xs-12 col-md-3 btn-go-holder">
-                                    <input id="search-iban" class="btn-go" type="button" name="submit" value="go" />
+                <table id="demo">
+                    <tr>
+                        <td>
+                            <div class="domain-form-holder left">
+                                <div id="leResult">SDFSDFSD</div>
+                                <div class="iban-form-holder">
+                                    <div class="title"><span>eBank.me</span></div>
+                                    <div class="avatar">
+                                        <img src="images/male.png">
+                                        Jake Jordan
+                                    </div>
+                                    <form id="iban-form-left">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                    Send <input id="amount-text-left" class="domain-text" type="text" name="amount" value="&euro; 25" /> to
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                    <input id="domain-text-left" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                    <input id="search-iban-left" class="btn-go" type="button" name="submit" value="go" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </td>
+                        <td>
+                            <div class="domain-form-holder right">
+                                <div class="iban-form-holder">
+                                    <div class="title"><span>MyBank.app</span></div>
+                                    <div class="avatar">
+                                        <img src="images/female.png">
+                                        Candice Ulfer
+                                    </div>
+                                    <form id="iban-form-right">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                    <input id="amount-text-right" class="domain-text" type="text" name="amount" value="&euro; 25" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-9 domain-text-holder">
+                                                    <input id="domain-text-right" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
+                                                </div>
+                                                <div class="col-xs-12 col-md-3 btn-go-holder">
+                                                    <input id="search-iban-right" class="btn-go" type="button" name="submit" value="go" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
             </div>
         </div>
     </div>
@@ -500,5 +541,6 @@ blanditiis cupiditate.
 <script src="js/main.js"></script>
 <script src="js/iban.js"></script>
 <script src="js/ibanstuff.js"></script>
+<script src="js/typed.js"></script>
 </body>
 </html>
