@@ -28,7 +28,11 @@ function getBankCode(ibanString) {
 	return bankCode;
 }
 
-
+function mapAliasToIBAN(alias) {
+	if (alias == "Stephane") {
+		return "BE69 3101 5432 1234";
+	}
+}
 
 
 "use strict";
@@ -56,27 +60,127 @@ $(document).ready(function(){
 						console.log("iban data", ibanData);
 						var configuration = {};
 
-						var leDiv = $("#leResult");
+						var leDiv = $("#leResult1");
 						leDiv.empty();
-						leDiv.append("<span>Bank Code : " + ibanData.bankCode + "</span>");
-						leDiv.append("<span>IBAN : " + ibanData.iban + "</span>");
-						leDiv.append("<span>Firstname : " + ibanData.firstname + "</span>");
-						leDiv.append("<span>Lastname : " + ibanData.lastname + "</span>");
+						leDiv.append("<div class='info'><label>Bank Code</label><span>" + ibanData.bankCode + "</span></div>");
+						leDiv.append("<div class='info'><label>IBAN</label><span>" + ibanData.iban + "</span></div>");
+						leDiv.append("<div class='info'><label>Firstname</label><span>" + ibanData.firstname + "</span></div>");
+						leDiv.append("<div class='info'><label>Lastname</label><span>" + ibanData.lastname + "</span></div>");
 
 
 						var confirmA = $("<a href='#'>Confirm</a>");
 						confirmA.click(function(e) {
 							e.preventDefault();
-							$("#leResult").css("opacity", "0");
-							$("#leResult").css("z-index", "-100");
-							$(".left .iban-form-holder").css("opacity", "1");
+							//$("#leResult1").hide();
+							//$("#leResult1").css("z-index", "-100");
+							//$(".left .iban-form-holder").show();
+
+							leDiv.empty();
+							leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
+
+							var confirmA = $("<a href='#'>Yeay!</a>");
+							confirmA.click(function(e) {
+								e.preventDefault();
+								$("#leResult1").hide();
+								$("#leResult1").css("z-index", "-100");
+								$(".left .iban-form-holder").show();
+							});
+							var span = $("<span></span>");
+							span.addClass("button")
+							span.append(confirmA);
+							leDiv.append(span);
+
 						});
 						var span = $("<span></span>");
+						span.addClass("button")
 						span.append(confirmA);
 						leDiv.append(span);
-						leDiv.css("opacity", "1");
-						$("#leResult").css("z-index", "100");
-						$(".left .iban-form-holder").css("opacity", "0");
+						leDiv.show();
+						$("#leResult1").css("z-index", "100");
+						$(".left .iban-form-holder").hide();
+
+
+
+					});
+				}
+			}).done(function() {
+				console.log( "second success" );
+			}).fail(function(err) {
+				console.log( "error", err );
+			});
+
+		} else {
+			alert("invalid iban!");
+		}
+
+
+	});
+
+	$("#search-iban-right").click(function(e){
+		//console.log("e", e);
+		e.preventDefault();
+		var alias = $("#domain-text-right").val();
+		/*
+		for (var i=0; i<99; i++) {
+			var iban = "BE" + i + " 3101 5432 1234";
+			console.log("iban: " + iban + " valid? " + IBAN.isValid(iban));
+		}
+		*/
+		var ibanString = mapAliasToIBAN(alias);
+		if (IBAN.isValid(ibanString)) {
+			console.log("valid iban");
+			var cc = getCountryCode(ibanString).toLowerCase();
+			var bc = getBankCode(ibanString);
+
+			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
+
+
+
+			console.log("calling url: ", url);
+			$.getJSON(url, function(data) {
+				console.log("succes", data);
+				if (data.api) {
+					$.getJSON(data.api + "?iban=" + ibanString.replace(/ /g, '+'), function(ibanData) {
+						console.log("iban data", ibanData);
+						var configuration = {};
+
+						var leDiv = $("#leResult2");
+						leDiv.empty();
+						leDiv.append("<div class='info'><label>Alias</label><span>" + alias + "</span></div>");
+						leDiv.append("<div class='info'><label>IBAN</label><span>" + ibanString + "</span></div>");
+						leDiv.append("<div class='info'><label>Firstname</label><span>" + ibanData.firstname + "</span></div>");
+						leDiv.append("<div class='info'><label>Lastname</label><span>" + ibanData.lastname + "</span></div>");
+
+
+						var confirmA = $("<a href='#'>Confirm</a>");
+						confirmA.click(function(e) {
+							e.preventDefault();
+							//$("#leResult2").hide();
+							//$("#leResult2").css("z-index", "-100");
+							//$(".right .iban-form-holder").show();
+
+							leDiv.empty();
+							leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
+
+							var confirmA = $("<a href='#'>Yeay!</a>");
+							confirmA.click(function(e) {
+								e.preventDefault();
+								$("#leResult2").hide();
+								$("#leResult2").css("z-index", "-100");
+								$(".right .iban-form-holder").show();
+							});
+							var span = $("<span></span>");
+							span.addClass("button")
+							span.append(confirmA);
+							leDiv.append(span);
+						});
+						var span = $("<span></span>");
+						span.addClass("button")
+						span.append(confirmA);
+						leDiv.append(span);
+						leDiv.show();
+						$("#leResult2").css("z-index", "100");
+						$(".right .iban-form-holder").hide();
 
 
 
@@ -116,11 +220,11 @@ $(document).ready(function(){
 						console.log("iban data", ibanData);
 						var configuration = {};
 
-						var leDiv = $("<div id='leResult' style='white-space:pre; width:600px; height:200px'></div>");
+						var leDiv = $("<div id='leResult1' style='white-space:pre; width:600px; height:200px'></div>");
 
 						$.featherlight(leDiv, configuration);
 
-						$("#leResult").typed({
+						$("#leResult1").typed({
 							strings: [
 								"Calling url: " + url + "\n" +
 								"DNS resolved it to: " + "https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/iban" + "\n" +
