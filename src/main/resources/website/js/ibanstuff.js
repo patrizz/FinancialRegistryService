@@ -35,9 +35,48 @@ function mapAliasToIBAN(alias) {
 }
 
 
+function flyBillFromL2R(callback) {
+	$(".euro-bill").css("left", "220px");
+	$(".euro-bill").fadeIn(1000, function() {
+		$(".euro-bill").animate({left: "+=500"}, 1000);
+		$(".euro-bill").fadeOut(1000, function() {
+			callback();
+		});
+	});
+}
+
+function flyBillFromR2L(callback) {
+	$(".euro-bill").css("left", "790px");
+	$(".euro-bill").fadeIn(1000, function() {
+		$(".euro-bill").animate({left: "-=500"}, 1000);
+		$(".euro-bill").fadeOut(1000, function() {
+			callback();
+		});
+	});
+
+}
+
+
 "use strict";
 $(document).ready(function(){
     console.log("attaching handler to iban-form");
+
+	$(".domain-form-holder.left").hover(function() {
+		$(".use-case-setup.left").fadeIn(500);
+		$(".use-case-steps.left").fadeIn(500);
+	}, function() {
+		$(".use-case-setup.left").fadeOut(500);
+		$(".use-case-steps.left").fadeOut(500);
+	});
+
+
+	$(".domain-form-holder.right").hover(function() {
+		$(".use-case-setup.right").fadeIn(500);
+		$(".use-case-steps.right").fadeIn(500);
+	}, function() {
+		$(".use-case-setup.right").fadeOut(500);
+		$(".use-case-steps.right").fadeOut(500);
+	});
 
 	$("#search-iban-left").click(function(e){
 		//console.log("e", e);
@@ -62,8 +101,8 @@ $(document).ready(function(){
 
 						var leDiv = $("#leResult1");
 						leDiv.empty();
-						leDiv.append("<div class='info'><label>Bank Code</label><span>" + ibanData.bankCode + "</span></div>");
-						leDiv.append("<div class='info'><label>IBAN</label><span>" + ibanData.iban + "</span></div>");
+						leDiv.append("<div class='info'><label><u>Beneficiary</u></label><span>" + ibanData.bankCode + "</span></div>");
+						leDiv.append("<div class='info'><label>Account Number</label><span>" + ibanData.iban + "</span></div>");
 						leDiv.append("<div class='info'><label>Firstname</label><span>" + ibanData.firstname + "</span></div>");
 						leDiv.append("<div class='info'><label>Lastname</label><span>" + ibanData.lastname + "</span></div>");
 
@@ -71,24 +110,26 @@ $(document).ready(function(){
 						var confirmA = $("<a href='#'>Confirm</a>");
 						confirmA.click(function(e) {
 							e.preventDefault();
-							//$("#leResult1").hide();
-							//$("#leResult1").css("z-index", "-100");
-							//$(".left .iban-form-holder").show();
 
-							leDiv.empty();
-							leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
+							flyBillFromL2R(function() {
+								leDiv.empty();
+								leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
 
-							var confirmA = $("<a href='#'>Yeay!</a>");
-							confirmA.click(function(e) {
-								e.preventDefault();
-								$("#leResult1").hide();
-								$("#leResult1").css("z-index", "-100");
-								$(".left .iban-form-holder").show();
+								var confirmA = $("<a href='#'>Yeay!</a>");
+								confirmA.click(function(e) {
+									e.preventDefault();
+									$("#leResult1").hide();
+									$("#leResult1").css("z-index", "-100");
+									$(".left .iban-form-holder").show();
+								});
+								var span = $("<span></span>");
+								span.addClass("button")
+								span.append(confirmA);
+								leDiv.append(span);
 							});
-							var span = $("<span></span>");
-							span.addClass("button")
-							span.append(confirmA);
-							leDiv.append(span);
+
+
+
 
 						});
 						var span = $("<span></span>");
@@ -147,7 +188,7 @@ $(document).ready(function(){
 						var leDiv = $("#leResult2");
 						leDiv.empty();
 						leDiv.append("<div class='info'><label>Alias</label><span>" + alias + "</span></div>");
-						leDiv.append("<div class='info'><label>IBAN</label><span>" + ibanString + "</span></div>");
+						leDiv.append("<div class='info'><label>Account Number</label><span>" + ibanString + "</span></div>");
 						leDiv.append("<div class='info'><label>Firstname</label><span>" + ibanData.firstname + "</span></div>");
 						leDiv.append("<div class='info'><label>Lastname</label><span>" + ibanData.lastname + "</span></div>");
 
@@ -155,24 +196,27 @@ $(document).ready(function(){
 						var confirmA = $("<a href='#'>Confirm</a>");
 						confirmA.click(function(e) {
 							e.preventDefault();
-							//$("#leResult2").hide();
-							//$("#leResult2").css("z-index", "-100");
-							//$(".right .iban-form-holder").show();
+							flyBillFromR2L(function() {
+								//$("#leResult2").hide();
+								//$("#leResult2").css("z-index", "-100");
+								//$(".right .iban-form-holder").show();
 
-							leDiv.empty();
-							leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
+								leDiv.empty();
+								leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
 
-							var confirmA = $("<a href='#'>Yeay!</a>");
-							confirmA.click(function(e) {
-								e.preventDefault();
-								$("#leResult2").hide();
-								$("#leResult2").css("z-index", "-100");
-								$(".right .iban-form-holder").show();
+								var confirmA = $("<a href='#'>Yeay!</a>");
+								confirmA.click(function(e) {
+									e.preventDefault();
+									$("#leResult2").hide();
+									$("#leResult2").css("z-index", "-100");
+									$(".right .iban-form-holder").show();
+								});
+								var span = $("<span></span>");
+								span.addClass("button")
+								span.append(confirmA);
+								leDiv.append(span);
 							});
-							var span = $("<span></span>");
-							span.addClass("button")
-							span.append(confirmA);
-							leDiv.append(span);
+
 						});
 						var span = $("<span></span>");
 						span.addClass("button")

@@ -122,3 +122,69 @@ span.button {
     padding: 8px 0px;
     font-size: 18px;
 }
+
+/*euro bill*/
+
+img.euro-bill {
+    position: absolute;
+    display:none;
+}
+
+div.use-case-text {
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -80px;
+}
+
+
+
+div.use-case-setup {
+    padding-top: 10px;
+}
+
+div.use-case-setup.left {
+    color: white;
+    display: none;
+    position: absolute;
+    left: -140px;
+    top: 370px;
+    font-weight: bolder;
+}
+
+.use-case-steps.left {
+    color: white;
+    display: none;
+    position: absolute;
+    left: 329px;
+    top: 600px;
+    width: 45%;
+    font-weight: bolder;
+}
+
+div.use-case-setup.right {
+    color: white;
+    display: none;
+    position: absolute;
+    left: 440px;
+    top: 370px;
+    font-weight: bolder;
+}
+
+.use-case-steps.right {
+    color: white;
+    display: none;
+    position: absolute;
+    left: 900px;
+    top: 600px;
+    width: 45%;
+    font-weight: bolder;
+}
+
+.explanation {
+    text-align: left;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
