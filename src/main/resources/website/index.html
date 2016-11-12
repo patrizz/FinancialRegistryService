@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="css/slick.css">
 <link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.carousel-3d.default.css">
 <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
     
@@ -43,31 +44,37 @@
             <div class="col-xs-12 text-center rocket-animation-holder">
                 <h1>Financial Address Registry</h1>
                 <h4>Using Internet standards and DNS infrastructure to retrieve Beneficiary details</h4>
-                <table id="demo">
-                    <tr>
-                        <td>
-                            <div class="use-case-text left">Retrieve Beneficiary details from account number before confirming payment</div>
-                            <div class="use-case-setup left">
-                                <div class="explanation">
-                                    Setup:
-                                    <ul>
-                                        <li>Global DNS</li>
-                                        <li>Country DNS</li>
-                                        <li>GetAccountDetails service exposed by Account Servicing Bank</li>
-                                    </ul>
+                <div class="wrapper">
+                    <div id="myCarousel" data-carousel-3d>
+                        <div>
+                            <div class="use-case-text left">
+                                <span class="explanation"><b>Demo 1:</b> Retrieve Beneficiary details from account number before confirming payment</span>
+                                <button id="use-case-text-left-more-button">more</button>
+                                <div id="use-case-text-left-more-text" data-hidden="true" style="display:none">
+                                    <div class="use-case-setup left">
+                                        <div class="explanation">
+                                            Setup:
+                                            <ul>
+                                                <li>Global DNS</li>
+                                                <li>Country DNS</li>
+                                                <li>GetAccountDetails service exposed by Account Servicing Bank</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="use-case-steps left">
+                                        <div class="explanation">
+                                            Steps:
+                                            <ul>
+                                                <li>Bank code of IBAN is retrieved and the following url is built: Bank.Country.openbanking.com</li>
+                                                <li>DNS returns URI of GetAccountDetails in the bank identified by BankCode</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="use-case-steps left">
-                                <div class="explanation">
-                                    Steps:
-                                    <ul>
-                                        <li>Bank code of IBAN is retrieved and the following url is built: Bank.Country.openbanking.com</li>
-                                        <li>DNS returns URI of GetAccountDetails in the bank identified by BankCode</li>
-                                    </ul>
-                                </div>
-                            </div>
+
                             <div class="domain-form-holder left">
-                                <img class="euro-bill" src="images/small_euro_bill.png">
+                                <img class="euro-bill-left" src="images/small_euro_bill.png">
                                 <div id="leResult1"></div>
                                 <div class="iban-form-holder">
                                     <div class="title"><span>MyBank.app</span></div>
@@ -96,30 +103,36 @@
                                     </form>
                                 </div>
                             </div>
-                        </td>
-                        <td>
-                            <div class="use-case-text right">Retrieve account number and Beneficiary details from Alias</div>
-                            <div class="use-case-setup right">
-                                <div class="explanation">
-                                    Setup:
-                                    <ul>
-                                        <li>Global DNS</li>
-                                        <li>Country DNS</li>
-                                        <li>Alias is registered in Account Servicing Bank</li>
-                                        <li>GetAccountDetails service exposed by Account Servicing Bank</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="use-case-steps right">
-                                <div class="explanation">
-                                    Steps:
-                                    <ul>
-                                        <li>Alias is hiding a URI that has been exchanged between payee and payer.</li>
-                                        <li>URI is dereferenced by DNS and returns URI of GetAccountDetails in the bank identified by BankCode</li>
-                                    </ul>
+                        </div>
+                        <div>
+                            <div class="use-case-text right">
+                                <div class="explanation"><b>Demo 2:</b> Retrieve account number and Beneficiary details from Alias</div>
+                                <button id="use-case-text-right-more-button">more</button>
+                                <div id="use-case-text-right-more-text" data-hidden="true" style="display:none">
+                                    <div class="use-case-setup right">
+                                        <div class="explanation">
+                                            Setup:
+                                            <ul>
+                                                <li>Global DNS</li>
+                                                <li>Country DNS</li>
+                                                <li>Alias is registered in Account Servicing Bank</li>
+                                                <li>GetAccountDetails service exposed by Account Servicing Bank</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="use-case-steps right">
+                                        <div class="explanation">
+                                            Steps:
+                                            <ul>
+                                                <li>Alias is hiding a URI that has been exchanged between payee and payer.</li>
+                                                <li>URI is dereferenced by DNS and returns URI of GetAccountDetails in the bank identified by BankCode</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="domain-form-holder right">
+                                <img class="euro-bill-right" src="images/small_euro_bill.png">
                                 <div id="leResult2"></div>
                                 <div class="iban-form-holder">
                                     <div class="title"><span>eBank.me</span></div>
@@ -146,9 +159,67 @@
                                     </form>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                        <div>
+                        <div class="use-case-text third">
+                            <div class="explanation"><b>Demo 3:</b> Retrieve account number and Beneficiary details from Alias</div>
+                            <button id="use-case-text-third-more-button">more</button>
+                            <div id="use-case-text-third-more-text" data-hidden="true" style="display:none">
+                                <div class="use-case-setup third">
+                                    <div class="explanation">
+                                        Setup:
+                                        <ul>
+                                            <li>Global DNS</li>
+                                            <li>Country DNS</li>
+                                            <li>Alias is registered in Account Servicing Bank</li>
+                                            <li>GetAccountDetails service exposed by Account Servicing Bank</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="use-case-steps third">
+                                    <div class="explanation">
+                                        Steps:
+                                        <ul>
+                                            <li>Alias is hiding a URI that has been exchanged between payee and payer.</li>
+                                            <li>URI is dereferenced by DNS and returns URI of GetAccountDetails in the bank identified by BankCode</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="domain-form-holder third">
+                            <div id="leResult3"></div>
+                            <div class="iban-form-holder">
+                                <div class="title"><span>eBank.me</span></div>
+                                <div class="avatar">
+                                    <img src="images/female.png">
+                                    Candice Ulfer
+                                </div>
+                                <form id="iban-form-third">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                Send <input id="amount-text-third" class="domain-text" type="text" name="amount" value="&euro; 25" /> to
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-9 domain-text-holder">
+                                                <input id="domain-text-third" class="domain-text" type="text" name="domain" value="Stephane" />
+                                            </div>
+                                            <div class="col-xs-12 col-md-3 btn-go-holder">
+                                                <input id="search-iban-third" class="btn-go" type="button" name="submit" value="go" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                        <div>No Demo 4 yet, but you'll find it here when it is available</div>
+                        <div>OK, if demo 4 is not yet available, you can't expect demo 5 to be here ;)</div>
+                        <div>Nope, no demo 6 either :)</div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -297,178 +368,6 @@ blanditiis cupiditate.
         </div>
     </div>
 </div>
-<!--div id="starting" class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-sx-12 col-md-6">
-                <h4>Start building your website today!</h4>
-            </div>
-            <div class="col-sx-12 col-md-3">
-                <div class="price-holder">
-                    <div class="currency">$</div>
-                    <div class="number">
-                        <div class="num-big">3</div>
-                        <div class="num-small-holder">
-                            <div class="plan-info">Starting From</div>
-                            <div class="num-small">.38<div class="duration">/mo</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sx-12 col-md-3">
-                <a class="plan-button" href="#">Select plan</a>
-            </div>
-        </div>
-    </div>
-</div-->
-<!--div id="pricing" class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 row-title">
-                <h4>Pricing the Priceless</h4>
-                <h5>Best prices ever for Search and Register your Domain name!</h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="plan-box">
-                    <div class="plan-box-header color-bg1">
-                        <div class="plan-title">Starter</div>
-                        <div class="price-holder">
-                            <div class="currency">$</div>
-                            <div class="number">
-                                <div class="num-big">3</div>
-                                <div class="num-small-holder">
-                                    <div class="num-small">.38<div class="duration">/mo</div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="plan-box-content">
-                        <ul class="c-list">    
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Unlimited Storage</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>500 Protected Files</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>All Sharing Features</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Realtime Revoke</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Access to Party Integrations</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Free Native Apps</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>QNote Editor</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Offline File Access</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Basic Versioning</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Single Sign on</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>2-Factor Autentication</li>
-                        </ul>
-                    </div>
-                    <div class="plan-box-button">
-                        <a class="color-bg1" href="#">Select plan</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="plan-box best-seller">
-                    <div class="plan-box-header color-bg2">
-                        <div class="plan-title">Advanced</div>
-                        <div class="price-holder">
-                            <div class="currency">$</div>
-                            <div class="number">
-                                <div class="num-big">5</div>
-                                <div class="num-small-holder">
-                                    <div class="num-small">.38<div class="duration">/mo</div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="plan-box-content">
-                        <ul class="c-list">    
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Unlimited Storage</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>500 Protected Files</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>All Sharing Features</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Realtime Revoke</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Access to Party Integrations</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Free Native Apps</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>QNote Editor</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Offline File Access</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Basic Versioning</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Single Sign on</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>2-Factor Autentication</li>
-                        </ul>
-                    </div>
-                    <div class="plan-box-button">
-                        <a class="color-bg2" href="#">Select plan</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="plan-box">
-                    <div class="plan-box-header color-bg3">
-                        <div class="plan-title">Ultra</div>
-                        <div class="price-holder">
-                            <div class="currency">$</div>
-                            <div class="number">
-                                <div class="num-big">8</div>
-                                <div class="num-small-holder">
-                                    <div class="num-small">.38<div class="duration">/mo</div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="plan-box-content">
-                        <ul class="c-list">    
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Unlimited Storage</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>500 Protected Files</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>All Sharing Features</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Realtime Revoke</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Access to Party Integrations</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Free Native Apps</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>QNote Editor</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Offline File Access</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Basic Versioning</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>Single Sign on</li>
-                            <li class="c-item not-inc"><i class="fa fa-check" aria-hidden="true"></i>2-Factor Autentication</li>
-                        </ul>
-                    </div>
-                    <div class="plan-box-button">
-                        <a class="color-bg3" href="#">Select plan</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="plan-box">
-                    <div class="plan-box-header color-bg4">
-                        <div class="plan-title">Pro</div>
-                        <div class="price-holder">
-                            <div class="currency">$</div>
-                            <div class="number">
-                                <div class="num-big">13</div>
-                                <div class="num-small-holder">
-                                    <div class="num-small">.38<div class="duration">/mo</div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="plan-box-content">
-                        <ul class="c-list">    
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Unlimited Storage</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>500 Protected Files</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>All Sharing Features</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Realtime Revoke</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Access to Party Integrations</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Free Native Apps</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>QNote Editor</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Offline File Access</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Basic Versioning</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>Single Sign on</li>
-                            <li class="c-item"><i class="fa fa-check" aria-hidden="true"></i>2-Factor Autentication</li>
-                        </ul>
-                    </div>
-                    <div class="plan-box-button">
-                        <a class="color-bg4" href="#">Select plan</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div-->    
 <div id="reasons" class="container-fluid">
     <div class="container">
         <div class="row">
@@ -497,49 +396,6 @@ blanditiis cupiditate.
         </div>
     </div>
 </div>
-<!--div id="testimonials" class="container-fluid">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-xs-12">
-                <div class="testimonials-slider">
-                    <div class="testimonial-slide">
-                        <div class="slide-content">
-                            <div class="col-sm-12 col-md-3">
-                                <img src="images/sample.jpg" alt="">
-                            </div>
-                            <div class="col-sm-12 col-md-9">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque quos dolores et quas molestias excepturi.<br>
-                                    praesentium voluptatum deleniti atque corrupti quos et quas molestias excepturi.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="slide-content">
-                            <div class="col-sm-12 col-md-3">
-                                <img src="images/sample.jpg" alt="">
-                            </div>
-                            <div class="col-sm-12 col-md-9">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque quos dolores et quas molestias excepturi.<br>
-                                    praesentium voluptatum deleniti atque corrupti quos et quas molestias excepturi.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-slide">
-                        <div class="slide-content">
-                            <div class="col-sm-12 col-md-3">
-                                <img src="images/sample.jpg" alt="">
-                            </div>
-                            <div class="col-sm-12 col-md-9">
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque quos dolores et quas molestias excepturi.<br>
-                                    praesentium voluptatum deleniti atque corrupti quos et quas molestias excepturi.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div-->
 <div id="footer" class="container-fluid">
     <div class="container">
         <div class="row">
@@ -575,9 +431,6 @@ blanditiis cupiditate.
                 </div>
             </div>
             <div class="col-xs-12 col-md-1">
-                <!--div class="contact-box">
-                    <i class="hroc hroc-twitter"></i> @thewearablebank
-                </div-->
             </div>
         </div>
     </div>
@@ -591,5 +444,26 @@ blanditiis cupiditate.
 <script src="js/iban.js"></script>
 <script src="js/ibanstuff.js"></script>
 <script src="js/typed.js"></script>
+<script>
+    if (window.innerWidth > 800) {
+        var head = document.getElementsByTagName('head')[0];
+
+        var s1 = document.createElement("script");
+        s1.type = "text/javascript";
+        s1.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/2.2.0/jquery.waitforimages.min.js";
+        head.appendChild(s1);
+
+        var s1 = document.createElement("script");
+        s1.type = "text/javascript";
+        s1.src = "https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js";
+        head.appendChild(s1);
+
+        var s1 = document.createElement("script");
+        s1.type = "text/javascript";
+        s1.src = "js/jquery.carousel-3d.min.js";
+        head.appendChild(s1);
+    }
+</script>
+
 </body>
 </html>

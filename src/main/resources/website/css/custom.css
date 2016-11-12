@@ -16,7 +16,7 @@ table#demo  {
     padding-top: 10px;
 }
 
-.domain-form-holder.left, .domain-form-holder.right  {
+.domain-form-holder.left, .domain-form-holder.right, .domain-form-holder.third {
     background-image: url("../images/smartphone.png");
     background-size:cover ;
     background-repeat: no-repeat;
@@ -71,7 +71,7 @@ form#iban-form-left, form#iban-form-right {
     font-size: 16px;
 }
 
-#amount-text-left {
+#amount-text-left, #amount-text-right {
     width: 45%;
     padding: 0px;
     display: inline-block;
@@ -125,66 +125,89 @@ span.button {
 
 /*euro bill*/
 
-img.euro-bill {
+img.euro-bill-left, img.euro-bill-right {
     position: absolute;
     display:none;
 }
 
 div.use-case-text {
-    width: 50%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: -80px;
 }
 
+.use-case-text .explanation {
+    width: 300px;
+    display: block;
+}
 
 
 div.use-case-setup {
+    color: white;
     padding-top: 10px;
-}
-
-div.use-case-setup.left {
-    color: white;
-    display: none;
-    position: absolute;
-    left: -140px;
-    top: 370px;
     font-weight: bolder;
+
 }
 
-.use-case-steps.left {
+.use-case-steps {
     color: white;
-    display: none;
-    position: absolute;
-    left: 329px;
-    top: 600px;
-    width: 45%;
-    font-weight: bolder;
-}
-
-div.use-case-setup.right {
-    color: white;
-    display: none;
-    position: absolute;
-    left: 440px;
-    top: 370px;
-    font-weight: bolder;
-}
-
-.use-case-steps.right {
-    color: white;
-    display: none;
-    position: absolute;
-    left: 900px;
-    top: 600px;
-    width: 45%;
     font-weight: bolder;
 }
 
 .explanation {
-    text-align: left;
+
     width: 40%;
     margin-left: auto;
     margin-right: auto;
+}
+
+#use-case-text-left-more-text, #use-case-text-right-more-text, #use-case-text-third-more-text{
+    display: block;
+    position: absolute;
+    background-color: #009500;
+    width: 90%;
+    z-index: 100;
+    border-radius: 10px;
+    text-align: left;
+    margin-left: 3%;
+    font-size: 12px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+@media (max-width: 800px) {
+    .wrapper {
+        width: 100%;
+    }
+    .domain-form-holder {
+        max-width: 500px;
+        margin-top: 105px;
+        margin-bottom: 20px;
+        margin-left:auto;
+        margin-right:auto;
+
+    }
+    #top-content {
+        padding: 0px;
+    }
+    #use-case-text-left-more-text, #use-case-text-right-more-text, #use-case-text-third-more-text {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    [data-carousel-3d]:before {
+        padding-top: 0px !important;
+    }
+}
+
+@media (min-width: 800px) {
+    .wrapper {
+        height: 600px;
+        width: 100%;
+    }
+}
+
+#myCarousel, [data-children-wrapper], [data-child], [data-prev-button], [data-carousel-3d], [data-child-frame] {
+    border-color: #3a9dc2 !important;
 }

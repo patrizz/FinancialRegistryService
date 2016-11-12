@@ -36,20 +36,20 @@ function mapAliasToIBAN(alias) {
 
 
 function flyBillFromL2R(callback) {
-	$(".euro-bill").css("left", "220px");
-	$(".euro-bill").fadeIn(1000, function() {
-		$(".euro-bill").animate({left: "+=500"}, 1000);
-		$(".euro-bill").fadeOut(1000, function() {
+	$(".euro-bill-left").css("left", "0px");
+	$(".euro-bill-left").fadeIn(1000, function() {
+		$(".euro-bill-left").animate({left: "+=500"}, 1000);
+		$(".euro-bill-left").fadeOut(1000, function() {
 			callback();
 		});
 	});
 }
 
 function flyBillFromR2L(callback) {
-	$(".euro-bill").css("left", "790px");
-	$(".euro-bill").fadeIn(1000, function() {
-		$(".euro-bill").animate({left: "-=500"}, 1000);
-		$(".euro-bill").fadeOut(1000, function() {
+	$(".euro-bill-right").css("left", "220px");
+	$(".euro-bill-right").fadeIn(1000, function() {
+		$(".euro-bill-right").animate({left: "-=500"}, 1000);
+		$(".euro-bill-right").fadeOut(1000, function() {
 			callback();
 		});
 	});
@@ -61,21 +61,67 @@ function flyBillFromR2L(callback) {
 $(document).ready(function(){
     console.log("attaching handler to iban-form");
 
-	$(".domain-form-holder.left").hover(function() {
-		$(".use-case-setup.left").fadeIn(500);
-		$(".use-case-steps.left").fadeIn(500);
-	}, function() {
-		$(".use-case-setup.left").fadeOut(500);
-		$(".use-case-steps.left").fadeOut(500);
+
+
+	$("#use-case-text-left-more-button").click(function() {
+		console.log("left button clicked");
+		if ($("#use-case-text-left-more-text").data("hidden")) {
+			console.log("data hidden true");
+			$("#use-case-text-left-more-text").data("hidden", false);
+			$("#use-case-text-left-more-button").prop('disabled', true);
+			$("#use-case-text-left-more-text").fadeIn(function() {
+				$("#use-case-text-left-more-button").prop('disabled', false);
+				$("#use-case-text-left-more-button").text("less");
+			});
+		} else {
+			console.log("data hidden false");
+			$("#use-case-text-left-more-text").data("hidden", true);
+			$("#use-case-text-left-more-button").prop('disabled', true);
+			$("#use-case-text-left-more-text").fadeOut(function() {
+				$("#use-case-text-left-more-button").prop('disabled', false);
+				$("#use-case-text-left-more-button").text("more");
+			});
+		}
 	});
 
+	$("#use-case-text-right-more-button").click(function() {
+		console.log("right button clicked");
+		if ($("#use-case-text-right-more-text").data("hidden")) {
+			console.log("data hidden true");
+			$("#use-case-text-right-more-text").data("hidden", false);
+			$("#use-case-text-right-more-button").prop('disabled', true);
+			$("#use-case-text-right-more-text").fadeIn(function() {
+				$("#use-case-text-right-more-button").prop('disabled', false);
+				$("#use-case-text-right-more-button").text("less");
+			});
+		} else {
+			console.log("data hidden false");
+			$("#use-case-text-right-more-text").data("hidden", true);
+			$("#use-case-text-right-more-text").fadeOut(function() {
+				$("#use-case-text-right-more-button").prop('disabled', false);
+				$("#use-case-text-right-more-button").text("more");
+			});
+		}
+	});
 
-	$(".domain-form-holder.right").hover(function() {
-		$(".use-case-setup.right").fadeIn(500);
-		$(".use-case-steps.right").fadeIn(500);
-	}, function() {
-		$(".use-case-setup.right").fadeOut(500);
-		$(".use-case-steps.right").fadeOut(500);
+	$("#use-case-text-third-more-button").click(function() {
+		console.log("third button clicked");
+		if ($("#use-case-text-third-more-text").data("hidden")) {
+			console.log("data hidden true");
+			$("#use-case-text-third-more-text").data("hidden", false);
+			$("#use-case-text-third-more-button").prop('disabled', true);
+			$("#use-case-text-third-more-text").fadeIn(function() {
+				$("#use-case-text-third-more-button").prop('disabled', false);
+				$("#use-case-text-third-more-button").text("less");
+			});
+		} else {
+			console.log("data hidden false");
+			$("#use-case-text-third-more-text").data("hidden", true);
+			$("#use-case-text-third-more-text").fadeOut(function() {
+				$("#use-case-text-third-more-button").prop('disabled', false);
+				$("#use-case-text-third-more-button").text("more");
+			});
+		}
 	});
 
 	$("#search-iban-left").click(function(e){
