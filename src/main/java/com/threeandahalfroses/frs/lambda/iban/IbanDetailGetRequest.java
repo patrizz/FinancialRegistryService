@@ -1,4 +1,4 @@
-package com.threeandahalfroses.frs.lambda;
+package com.threeandahalfroses.frs.lambda.iban;
 
 /**
  * @author patrizz on 05/09/16.

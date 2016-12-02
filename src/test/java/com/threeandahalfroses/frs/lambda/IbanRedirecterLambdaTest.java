@@ -1,6 +1,8 @@
 package com.threeandahalfroses.frs.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.threeandahalfroses.frs.lambda.iban.IbanGetRequest;
+import com.threeandahalfroses.frs.lambda.iban.IbanRedirecterLambda;
 import org.json.simple.JSONAware;
 import org.json.simple.JSONObject;
 import org.junit.Test;

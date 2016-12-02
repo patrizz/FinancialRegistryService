@@ -1,15 +1,242 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-09-03T10:27:51Z",
+    "version": "2016-09-23T22:19:49Z",
     "title": "Taahr-Iban-v1"
   },
-  "host": "glozrhoqo9.execute-api.eu-west-1.amazonaws.com",
-  "basePath": "/dev",
+  "host": "310.be.thewearablebank.com",
+  "basePath": "/be",
   "schemes": [
     "https"
   ],
   "paths": {
+    "/flexledger": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "text/html": "{\"name\" : $input.json('$.name')}",
+            "application/json": "{\"name\" : $input.json('$.name')}"
+          },
+          "responses": {
+            ".*": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:create-ledger/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
+    "/be": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "{'country':'be'}"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
+    "/de": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "{'country':'de'}"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
+    "/get-api": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "{\"api\":\"https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/iban\",\"logon\":\"https://s3.eu-central-1.amazonaws.com/thewearablebank.com/be/310/310-be-logon-fragment.html\"}"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
     "/iban": {
       "get": {
         "consumes": [
@@ -42,6 +269,9 @@
           "302": {
             "description": "302 response",
             "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
               "Location": {
                 "type": "string"
               }
@@ -49,22 +279,67 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "responses": {
-            "default": {
-              "statusCode": "302",
-              "responseParameters": {
-                "method.response.header.Location": "integration.response.body.location"
-              }
-            }
-          },
           "requestTemplates": {
             "text/html": "{\"iban\" : \"$input.params('iban')\"}",
             "application/json": "{\"iban\" : \"$input.params('iban')\"}"
           },
           "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "302",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Location": "integration.response.body.location"
+              }
+            }
+          },
           "passthroughBehavior": "when_no_match",
           "httpMethod": "POST",
           "type": "aws"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
         }
       }
     },
@@ -76,13 +351,13 @@
         ],
         "parameters": [
           {
-            "name": "iban",
+            "name": "bankCode",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "bankCode",
+            "name": "iban",
             "in": "query",
             "required": false,
             "type": "string"
@@ -92,6 +367,9 @@
           "200": {
             "description": "200 response",
             "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
               "Content-Type": {
                 "type": "string"
               }
@@ -99,22 +377,67 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "responses": {
-            ".*": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Content-Type": "'application/json; charset=utf-8'"
-              }
-            }
-          },
           "requestTemplates": {
             "text/html": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}",
             "application/json": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}"
           },
           "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban-detail/invocations",
+          "responses": {
+            ".*": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "'application/json; charset=utf-8'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
           "passthroughBehavior": "when_no_match",
           "httpMethod": "POST",
           "type": "aws"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
         }
       }
     }

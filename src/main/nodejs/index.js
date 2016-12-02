@@ -2,94 +2,206 @@
 
 console.log("handler - top - 1");
 
+var querystring = require('querystring');
+
+var uuid = require("uuid");
+var http = require('http');
+
 var jsonld = require('jsonld');
 var jsig = require('jsonld-signatures');
+jsig.use('jsonld', jsonld);
 
 var keys = require('keys');
 
+var serviceUrl = "http://dhs2016ledger.digitalbazaar.com/ledgers";
 
 console.log("handler - top - 2");
+
+function postCode(signedevent, callback) {
+    // Build the post string from an object
+    var post_data = JSON.stringify(signedevent);
+
+    // An object of options to indicate where to post to
+    var post_options = {
+        host: 'dhs2016ledger.digitalbazaar.com',
+        port: '80',
+        path: '/ledgers',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Accept': 'application/ld+json, application/json, text/plain, */*',
+            //'Accept-Encoding': 'gzip, deflate',
+            'Content-Length': Buffer.byteLength(post_data),
+            'Accept-Language': 'en-US,en;q=0.8,de;q=0.6,es;q=0.4,fr;q=0.2,nl;q=0.2',
+            'Origin': 'http://dhs2016ledger.digitalbazaar.com',
+            'Referer': 'http://dhs2016ledger.digitalbazaar.com/',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    };
+    console.log('post_options: ', post_options);
+    console.log('post_data: ', post_data);
+
+    // Set up the request
+    var post_req = http.request(post_options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('Response: ', chunk);
+            callback(null, chunk);
+        });
+        res.on('error', function (err) {
+            console.log('Error: ', err);
+            callback(err, null);
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+
+}
+
+console.log("handler - top - 3");
 
 exports.handler = function(event, context, callback) {
 
     console.log("starting handler");
 
-    // Set the path as described here: https://aws.amazon.com/blogs/compute/running-executables-in-aws-lambda/
-    process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'];
-    console.log("process env PATH:", process.env['PATH']);
-    // Set the path to the phantomjs binary
-
-    var apikey = event.params.querystring.apikey;
-    var ledgerName = event.params.querystring.ledgerName;
-    console.log("apiKey", apikey);
+    var ledgerName = event.name;
     console.log("ledgerName", ledgerName);
-    // Arguments for the phantom script
-
 
     try {
+        console.log("defining unsigned event to create ledger");
+        var did = uuid();
+        //did =did.replace(/-/g, "");
+        console.log("did=", did);
+        var unsignedEvent = {
+            //"@context": "http://dhs2016ledger.digitalbazaar.com/contexts/flex-v1.jsonld",
+            //"@context": "https://w3id.org/flex/v1",
+            "@context": {
+                "id": "@id",
+                "type": "@type",
 
-        var signedEvent = {
+                "dc": "http://purl.org/dc/terms/",
+                "flex": "https://w3id.org/flex#",
+                "identity": "https://w3id.org/identity#",
+                "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+                "sec": "https://w3id.org/security#",
+                "schema": "http://schema.org/",
+                "xsd": "http://www.w3.org/2001/XMLSchema#",
 
-        }
+                "CryptographicKey": "sec:Key",
+                "GraphSignature2012": "sec:GraphSignature2012",
+                "Identity": "identity:Identity",
+                "LedgerCheckpointEvent": "flex:LedgerCheckpointEvent",
+                "LedgerConfigurationEvent": "flex:LedgerConfigurationEvent",
+                "LedgerConsensusEvent": "flex:LedgerConsensusEvent",
+                "LedgerStorageEvent": "flex:LedgerStorageEvent",
+                "LinkedDataSignature2015": "sec:LinkedDataSignature2015",
+                "LinkedDataSignature2016": "sec:LinkedDataSignature2016",
+                "MerklePatriciaTrie": "flex:MerklePatriciaTrie",
+                "MerkleTree": "flex:MerkleTree",
+                "ProofOfBallot2015": "flex:ProofOfBallot2015",
+                "ProofOfSignature2016": "flex:ProofOfSignature2016",
+                "ProofOfWork2016": "flex:ProofOfWork2016",
+                "SequentialList": "flex:SequentialList",
 
+                "addsObject": "flex:addsObject",
+                "approvedSigner": "flex:approvedSigner",
+                "canonicalizationAlgorithm": "sec:canonicalizationAlgorithm",
+                "checkpointLog": "flex:checkpointLog",
+                "checkpointLogHash": "flex:checkpointLogHash",
+                "comment": "rdfs:comment",
+                "consensusAlgorithm": "flex:consensusAlgorithm",
+                "created": {"@id": "dc:created", "@type": "xsd:dateTime"},
+                "creator": {"@id": "dc:creator", "@type": "@id"},
+                "description": "schema:description",
+                "digestAlgorithm": "sec:digestAlgorithm",
+                "digestValue": "sec:digestValue",
+                "domain": "sec:domain",
+                "expires": {"@id": "sec:expiration", "@type": "xsd:dateTime"},
+                "label": "rdfs:label",
+                "ledgerConfig": "flex:ledgerConfig",
+                "minimumQuorumPercentage": "flex:minimumQuorumPercentage",
+                "minimumSignaturesRequired": "flex:minimumSignaturesRequired",
+                "minimumVotePercentage": "flex:minimumVotePercentage",
+                "nextEvent": "flex:nextEvent",
+                "nonce": "sec:nonce",
+                "normalizationAlgorithm": "sec:normalizationAlgorithm",
+                "owner": {"@id": "sec:owner", "@type": "@id"},
+                "previousEvent": "flex:previousEvent",
+                "privateKey": {"@id": "sec:privateKey", "@type": "@id"},
+                "privateKeyPem": "sec:privateKeyPem",
+                "proofOfWorkAlgorithm": "flex:proofOfWorkAlgorithm",
+                "publicKey": {"@id": "sec:publicKey", "@type": "@id"},
+                "publicKeyPem": "sec:publicKeyPem",
+                "replacesObject": "flex:replacesObject",
+                "revoked": {"@id": "sec:revoked", "@type": "xsd:dateTime"},
+                "signature": "sec:signature",
+                "signatureAlgorithm": "sec:signatureAlgorithm",
+                "signatureValue": "sec:signatureValue",
+                "storageMechanism": "flex:storageMechanism",
+                "targetDifficulty": "flex:targetDifficulty"
+            },
+            "id": "did:" + did + "/events/1",
+            "type": "LedgerConfigurationEvent",
+            "ledgerConfig": {
+                "id": "did:" + did,
+                "type": "LedgerConfiguration",
+                "name": ledgerName,
+                "description": "superledger",
+                "storageMechanism": "SequentialList",
+                "consensusAlgorithm": {
+                    "type": "ProofOfSignature2016",
+                    "approvedSigner": [
+                        "http://dhs2016ledger.digitalbazaar.com/keys/cbp-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/ice-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/cis-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/tsa-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/fletc-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/fema-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/us-cert-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/occ-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/cg-key-1",
+                        "http://dhs2016ledger.digitalbazaar.com/keys/ss-key-1"
+                    ],
+                    "minimumSignaturesRequired": 1
+                }
+            },
+            "previousEvent": {
+                "hash": "urn:sha256:0000000000000000000000000000000000000000000000000000000000000000"
+            }
+        };
+        console.log("unsigned event defined", unsignedEvent);
         var privateKeyPem = keys.private();
+        console.log("private key", privateKeyPem);
         var publicKey = keys.public();
-
+        console.log("public key", publicKey);
         // sign the ledger event
         var signingOptions = {
             algorithm: 'LinkedDataSignature2015',
             privateKeyPem: privateKeyPem,
             creator: publicKey
         };
-        jsigs.sign(self.event, signingOptions, writeToLedger);
+        console.log("signingoptions", signingOptions);
 
-        // write the ledger event
-        var signedEvent = results.sign;
-        $http.post($location.url(), signedEvent).then(function(res) {
-            callback(null, res);
+        console.log("about to sign");
+        var sign = jsig.promises.sign(unsignedEvent, signingOptions);
+        sign.then(function(signedEvent) {
+            console.log("writing to ledger - signed event", signedEvent);
+            // write the ledger event
+
+            postCode(signedEvent, callback);
         }, function(err) {
-            callback(err);
+            console.log("writing to ledger - err", err);
         });
+        console.log("signing fired");
 
 
-        return callback(true, JSON.stringify(result));
     } catch(err) {
+        console.log("caught error", err);
         callback(null, JSON.stringify(err));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    var stdout = '';
-    var stderr = '';
-
-    phantom.stdout.on('data', function(data) {
-        stdout += data;
-    });
-
-    phantom.stderr.on('data', function(data) {
-        stderr += data;
-    });
-
-    phantom.on('uncaughtException', function(err) {
-        console.log('uncaught exception: ' + err);
-    });
-
-    phantom.on('exit', function(exitCode) {
-        if (exitCode !== 0) {
-            return callback(true, stderr);
-        }
-        callback(null, stdout);
-    });
 };
-console.log("handler - top - 3");
+console.log("handler - top - 4");

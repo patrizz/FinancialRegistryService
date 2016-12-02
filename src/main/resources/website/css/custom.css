@@ -51,7 +51,7 @@ form#iban-form-left, form#iban-form-right {
 
 /*https://fonts.google.com/specimen/Lobster?selection.family=Lobster*/
 
-.left div.title span {
+.left div.title span, .domain-form-holder.third .page .title span {
     font-family: 'Special Elite', cursive;
     font-size: 32px;
 }
@@ -210,4 +210,8 @@ div.use-case-setup {
 
 #myCarousel, [data-children-wrapper], [data-child], [data-prev-button], [data-carousel-3d], [data-child-frame] {
     border-color: #3a9dc2 !important;
+}
+
+#iban-cancel-third-button {
+    background-color: lightgrey;
 }

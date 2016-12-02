@@ -124,6 +124,86 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#pay-with-iban-button").click(function(e) {
+		e.preventDefault();
+		console.log("paying with iban");
+		var ibanString = $("#domain-text-left").val();
+		if (IBAN.isValid(ibanString)) {
+			console.log("valid iban");
+			var cc = getCountryCode(ibanString).toLowerCase();
+			var bc = getBankCode(ibanString);
+
+			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
+			console.log("calling url: ", url);
+			$.getJSON(url, function(data) {
+				console.log("processing result");
+				if (data.logon) {
+					$.get(data.logon + "?iban=" + ibanString.replace(/ /g, '+') + "&amount=2", function() {})
+						.done(function(logonHtml) {
+							$("#demo3-page2").html(logonHtml);
+						}).fail(function() {
+						//for now let's do some simple test stuff
+						var testHtml = '<div class="iban-form-holder">'
+							+ '<div class="title"><span>MyBank.app</span></div>'
+							+ '	<div class="avatar">'
+							+ '	<img src="images/female.png">'
+							+ '	Jacky Jo'
+							+ '</div>'
+							+ '<div class="text">logon and confirm payment</div>'
+							+ '<form id="iban-form-logon-third">'
+							+ '	<div class="container-fluid">'
+							+ '	<div class="row">'
+							+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+							+ '	<input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo" />'
+							+ '	</div>'
+							+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+							+ '	<input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678" />'
+							+ '	</div>'
+							+ '	<div class="col-xs-12 col-md-12 btn-go-holder">'
+							+ '	<input id="logon-button" class="btn-go" type="button" name="submit" value="login" />'
+							+ '	</div>'
+							+ '	</div>'
+							+ '	</div>'
+							+ '	</form>'
+							+ '	</div>'
+						$("#demo3-page2").html(testHtml);
+						$("#demo3-page1").hide();
+						$("#demo3-page2").show();
+						$("#logon-button").click(function(e) {
+							e.preventDefault();
+							$("#demo3-page2").hide();
+							$("#demo3-page3").show();
+							//fake check, replace by ledger stuff here
+							setTimeout(function() {
+								$("#demo3-page3").hide();
+								$("#demo3-page4").show();
+
+								$("#iban-pay-third-button").click(function(e) {
+									$("#demo3-page4").hide();
+									$("#demo3-page5").show();
+
+									setTimeout(function() {
+										$("#demo3-page5").hide();
+										$("#demo3-page6").show();
+
+										setTimeout(function() {
+											$("#demo3-page6").hide();
+											$("#demo3-page1").show();
+										}, 4000);
+
+									}, 4000);
+								});
+
+							}, 4000);
+						});
+					});
+				} else {
+					console.log("no logon url in data");
+				}
+			});
+		}
+	});
+
 	$("#search-iban-left").click(function(e){
 		//console.log("e", e);
 		e.preventDefault();
@@ -134,9 +214,6 @@ $(document).ready(function(){
 			var bc = getBankCode(ibanString);
 
 			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
-
-
-
 			console.log("calling url: ", url);
 			$.getJSON(url, function(data) {
 				console.log("succes", data);

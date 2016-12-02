@@ -1,4 +1,6 @@
-package com.threeandahalfroses.frs.lambda;
+package com.threeandahalfroses.frs.lambda.iban;
+
+import com.threeandahalfroses.frs.lambda.BaseRequest;
 
 /**
  * @author patrizz on 27/08/16.

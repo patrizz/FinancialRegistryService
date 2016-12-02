@@ -1,0 +1,31 @@
+{
+  "@context": "https://w3id.org/flex/v1",
+  "id": "did:%did%/events/1",
+  "type": "LedgerConfigurationEvent",
+  "ledgerConfig": {
+    "id": "did:%did%",
+    "type": "LedgerConfiguration",
+    "name": "%name%",
+    "description": "superledger",
+    "storageMechanism": "SequentialList",
+    "consensusAlgorithm": {
+      "type": "ProofOfSignature2016",
+      "approvedSigner": [
+        "http://dhs2016ledger.digitalbazaar.com/keys/cbp-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/ice-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/cis-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/tsa-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/fletc-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/fema-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/us-cert-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/occ-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/cg-key-1",
+        "http://dhs2016ledger.digitalbazaar.com/keys/ss-key-1"
+      ],
+      "minimumSignaturesRequired": 1
+    }
+  },
+  "previousEvent": {
+    "hash": "urn:sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
