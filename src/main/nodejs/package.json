@@ -1,0 +1,8 @@
+{
+  "name": "lambda-node-frs",
+  "version": "1.0.0",
+  "description": "Financial Registry Services on AWS Lambda for digital bazaar ledger creation",
+  "main": "index.js",
+  "author": "Patrice Kerremans",
+  "license": "MIT"
+}
