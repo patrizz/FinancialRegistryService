@@ -1,3 +1,15 @@
+.row {
+    margin-bottom: 30px;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+#top-content h1 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 table#demo  {
     width: 100%;
     margin-top: 70px;
@@ -209,7 +221,7 @@ div.use-case-setup {
 }
 
 #myCarousel, [data-children-wrapper], [data-child], [data-prev-button], [data-carousel-3d], [data-child-frame] {
-    border-color: #3a9dc2 !important;
+    border-color: transparent !important;
 }
 
 #iban-cancel-third-button {

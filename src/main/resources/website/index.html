@@ -1,20 +1,21 @@
+
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
-<title>Financial Registry Service</title>
-<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="css/slick.css">
-<link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/jquery.carousel-3d.default.css">
-<link rel="stylesheet" type="text/css" href="css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <title>Financial Registry Service</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.carousel-3d.default.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
-    
+
 <body>
 <nav id="mainNav" class="navbar navbar-default navbar-full">
     <div class="container container-nav">
@@ -25,11 +26,11 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand page-scroll" href="index.html">
-                Financial Registry Service
+                Financial Address Registry
             </a>
         </div>
         <div style="height: 1px;" aria-expanded="false" class="navbar-collapse collapse" id="bs">
-             <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="#info">About</a></li>
                 <li><a href="#features">info</a></li>
                 <li><a href="#footer">Contact</a></li>
@@ -41,9 +42,56 @@
 <div id="top-content" class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 text-center rocket-animation-holder">
-                <h1>Financial Address Registry</h1>
-                <h4>Using Internet standards and DNS infrastructure to retrieve Beneficiary details</h4>
+            <div class="col-xs-12 row-title text-center">
+                <h1>Using Internet standards and DNS infrastructure to support innovation in the financial ecosystem</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="reason-box">
+
+                    <h5>Problem Definition</h5>
+                    <p>Financial transactions are essentially about exchanging financial resources between accounts. Account numbers are financial addresses for financial transactions: they identify the source and the destination of the assets.
+                        <ul>
+                            <li>An important percentage of payments fail because the account number is not valid.</li>
+                            <li>Fraudsters can substitue account numbers. The payee cannot check the link between the account number and the beneficiary.</li>
+                            <li>Sanction screening is based on names, not necessarily on account numbers</li>
+                        </ul>
+                    </p>
+                    <h5>Solution</h5>
+                    <p>
+                        <ul>
+                            <li>Using DNS to resolve Account Numbers, just like DNS is resolving URLs, to reach the account servicing bank.</li>
+                            <li>Exposing “GetAccountDetails” at the account servicing bank</li>
+                            <li>Controlling information access to protect privacy while providing a value add service</li>
+                        </ul>
+                    </p>
+                    <h5>Value Proposition</h5>
+                    <p>It's standard - Low investment - Collaborative - Innovation enabling</p>
+                </div>
+            </div>
+            <!--div class="col-sm-12 col-md-6">
+                <div class="reason-box">
+                    <h5>Value Proposition: It's standard - Low investment - Collaborative - Innovation enabling</h5>
+                </div>
+            </div-->
+            <div class="col-sm-12 col-md-6">
+                <iframe class="youtube" width="100%" height="400" src="https://www.youtube.com/embed/X9OI-xeQbkM" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="reasons" class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 row-title">
+                <h4>Working Demoes!</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+
                 <div class="wrapper">
                     <div id="myCarousel" data-carousel-3d>
                         <div>
@@ -88,13 +136,9 @@
                                                 <div class="col-xs-12 col-md-12 domain-text-holder">
                                                     Send <input id="amount-text-left" class="domain-text" type="text" name="amount" value="&euro; 25" /> to
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-xs-12 col-md-12 domain-text-holder">
                                                     <input id="domain-text-left" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-xs-12 col-md-12 btn-go-holder">
                                                     <input id="search-iban-left" class="btn-go" type="button" name="submit" value="go" />
                                                 </div>
@@ -161,83 +205,43 @@
                             </div>
                         </div>
                         <div>
-                        <div class="use-case-text third">
-                            <div class="explanation"><b>Demo 3:</b> Pay online with your IBAN</div>
-                            <button id="use-case-text-third-more-button">more</button>
-                            <div id="use-case-text-third-more-text" data-hidden="true" style="display:none">
-                                <div class="use-case-setup third">
-                                    <div class="explanation">
-                                        Setup:
-                                        <ul>
-                                            <li>Global DNS</li>
-                                            <li>Country DNS</li>
-                                            <li>Alias is registered in Account Servicing Bank</li>
-                                            <li>After logon bank pays vendor</li>
-                                        </ul>
+                            <div class="use-case-text third">
+                                <div class="explanation"><b>Demo 3:</b> Pay online with your IBAN</div>
+                                <button id="use-case-text-third-more-button">more</button>
+                                <div id="use-case-text-third-more-text" data-hidden="true" style="display:none">
+                                    <div class="use-case-setup third">
+                                        <div class="explanation">
+                                            Setup:
+                                            <ul>
+                                                <li>Global DNS</li>
+                                                <li>Country DNS</li>
+                                                <li>Alias is registered in Account Servicing Bank</li>
+                                                <li>After logon bank pays vendor</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="use-case-steps third">
-                                    <div class="explanation">
-                                        Steps:
-                                        <ul>
-                                            <li>User selects pay with IBAN and enters IBAN.</li>
-                                            <li>User is taken to the bank's website</li>
-                                            <li>User logs in</li>
-                                            <li>Bank verifies if payment can be accepted and performs payment</li>
-                                            <li>User is taken back to vendor</li>
-                                        </ul>
+                                    <div class="use-case-steps third">
+                                        <div class="explanation">
+                                            Steps:
+                                            <ul>
+                                                <li>User selects pay with IBAN and enters IBAN.</li>
+                                                <li>User is taken to the bank's website</li>
+                                                <li>User logs in</li>
+                                                <li>Bank verifies if payment can be accepted and performs payment</li>
+                                                <li>User is taken back to vendor</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="domain-form-holder third">
-                            <div id="leResult3"></div>
-                            <div class="page-holder">
-                                <div id="demo3-page1" class="page">
-                                    <span>Azamon.com :)</span>
-                                    <div>
-                                        Pay with IBAN
-                                        <form id="iban-form-third">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-md-12 domain-text-holder">
-                                                        Total &euro;24,99
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-md-9 domain-text-holder">
-                                                        <input id="domain-text-third" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
-                                                    </div>
-                                                    <div class="col-xs-12 col-md-3 btn-go-holder">
-                                                        <input id="pay-with-iban-button" class="btn-go" type="button" name="submit" value="go" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div id="demo3-page2" class="page" style="display: none;">
-
-                                </div>
-                                <div id="demo3-page3" class="page" style="display: none;">
-                                    <div class="iban-form-holder">
-                                        <div class="title"><span>MyBank.app</span></div>
-                                        <div class="verifying">
-                                            Verifying if this is a valid payment request (no funds are being transferred yet)...
-                                        </div>
-                                        <div class="glass">
-                                            <!-- kudos to http://loading.io/ //--->
-                                            <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-magnify"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="translate(8.38237 3.53826)"><circle fill="#8b8bfc" cx="47" cy="47" r="20" opacity="0.5"></circle><path d="M77.5,69.3l-6.2-6.2c-0.7-0.7-1.3-1.2-1.9-1.6c2.6-4,4.1-8.8,4.1-14c0-14.4-11.7-26.1-26.1-26.1S21.3,33.2,21.3,47.5 S33,73.6,47.4,73.6c5.4,0,10.4-1.6,14.5-4.4c0.5,0.7,1.1,1.4,1.9,2.2l5.8,5.8c2.9,2.9,7.1,3.5,9.2,1.3C81,76.4,80.4,72.2,77.5,69.3z M47.4,66.2c-10.3,0-18.7-8.4-18.7-18.6s8.4-18.6,18.7-18.6s18.7,8.4,18.7,18.6S57.7,66.2,47.4,66.2z" fill="#424242"></path><animateTransform attributeName="transform" type="translate" from="15 15" to="15 15" dur="1s" repeatCount="indefinite" values="15 15;-15 15;0 -10.98;15 15" keyTimes="0;0.33;0.66;1"></animateTransform></g></svg>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="demo3-page4" class="page" style="display: none;">
-                                    <div class="iban-form-holder">
-                                        <div class="title"><span>MyBank.app</span></div>
-                                        <div class="verifying">
-                                            Please confirm that the you wish to pay
-                                            <form id="iban-form-pay-confirm">
+                            <div class="domain-form-holder third">
+                                <div id="leResult3"></div>
+                                <div class="page-holder">
+                                    <div id="demo3-page1" class="page">
+                                        <span>Azamon.com :)</span>
+                                        <div>
+                                            Pay with IBAN
+                                            <form id="iban-form-third">
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-12 domain-text-holder">
@@ -245,240 +249,109 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-xs-12 col-md-12 btn-go-holder">
-                                                            <input id="iban-pay-third-button" class="btn-go" type="button" name="submit" value="pay!" />
+                                                        <div class="col-xs-12 col-md-9 domain-text-holder">
+                                                            <input id="domain-text-third" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
                                                         </div>
-                                                        <div class="col-xs-12 col-md-12 btn-go-holder">
-                                                            <input id="iban-cancel-third-button" class="btn-go" type="button" name="submit" value="cancel" />
+                                                        <div class="col-xs-12 col-md-3 btn-go-holder">
+                                                            <input id="pay-with-iban-button" class="btn-go" type="button" name="submit" value="go" />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="demo3-page5" class="page" style="display: none;">
-                                    <div class="iban-form-holder">
-                                        <div class="title"><span>MyBank.app</span></div>
-                                        <div class="verifying">
-                                            Paid!<br><br>Taking you back to the vendor
-                                        </div>
-                                        <div>
-                                            <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="rotate(0 50 50)">
-                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
-                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
-                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#b5ccf1;#94a9ce"></animate>
-                                                </circle>
-                                            </g><g transform="rotate(72 50 50)">
-                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
-                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
-                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#94a9ce;#667395"></animate>
-                                                </circle>
-                                            </g><g transform="rotate(144 50 50)">
-                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
-                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
-                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#667395;#292664"></animate>
-                                                </circle>
-                                            </g><g transform="rotate(216 50 50)">
-                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
-                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
-                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#292664;#f5f4fa"></animate>
-                                                </circle>
-                                            </g><g transform="rotate(288 50 50)">
-                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
-                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
-                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#f5f4fa;#b5ccf1"></animate>
-                                                </circle>
-                                            </g></svg>
+                                    <div id="demo3-page2" class="page" style="display: none;">
+
+                                    </div>
+                                    <div id="demo3-page3" class="page" style="display: none;">
+                                        <div class="iban-form-holder">
+                                            <div class="title"><span>MyBank.app</span></div>
+                                            <div class="verifying">
+                                                Verifying if this is a valid payment request (no funds are being transferred yet)...
+                                            </div>
+                                            <div class="glass">
+                                                <!-- kudos to http://loading.io/ //--->
+                                                <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-magnify"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="translate(8.38237 3.53826)"><circle fill="#8b8bfc" cx="47" cy="47" r="20" opacity="0.5"></circle><path d="M77.5,69.3l-6.2-6.2c-0.7-0.7-1.3-1.2-1.9-1.6c2.6-4,4.1-8.8,4.1-14c0-14.4-11.7-26.1-26.1-26.1S21.3,33.2,21.3,47.5 S33,73.6,47.4,73.6c5.4,0,10.4-1.6,14.5-4.4c0.5,0.7,1.1,1.4,1.9,2.2l5.8,5.8c2.9,2.9,7.1,3.5,9.2,1.3C81,76.4,80.4,72.2,77.5,69.3z M47.4,66.2c-10.3,0-18.7-8.4-18.7-18.6s8.4-18.6,18.7-18.6s18.7,8.4,18.7,18.6S57.7,66.2,47.4,66.2z" fill="#424242"></path><animateTransform attributeName="transform" type="translate" from="15 15" to="15 15" dur="1s" repeatCount="indefinite" values="15 15;-15 15;0 -10.98;15 15" keyTimes="0;0.33;0.66;1"></animateTransform></g></svg>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="demo3-page6" class="page" style="display: none;">
-                                    <span>Azamon.com :)</span>
-                                    <div>
-                                        Thank you for paying! We're sending off the drones with your package.  Enjoy!
+                                    <div id="demo3-page4" class="page" style="display: none;">
+                                        <div class="iban-form-holder">
+                                            <div class="title"><span>MyBank.app</span></div>
+                                            <div class="verifying">
+                                                Please confirm that the you wish to pay
+                                                <form id="iban-form-pay-confirm">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                                Total &euro;24,99
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                                <input id="iban-pay-third-button" class="btn-go" type="button" name="submit" value="pay!" />
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                                <input id="iban-cancel-third-button" class="btn-go" type="button" name="submit" value="cancel" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="demo3-page5" class="page" style="display: none;">
+                                        <div class="iban-form-holder">
+                                            <div class="title"><span>MyBank.app</span></div>
+                                            <div class="verifying">
+                                                Paid!<br><br>Taking you back to the vendor
+                                            </div>
+                                            <div>
+                                                <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="rotate(0 50 50)">
+                                                    <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                        <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                        <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#b5ccf1;#94a9ce"></animate>
+                                                    </circle>
+                                                </g><g transform="rotate(72 50 50)">
+                                                    <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                        <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                        <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#94a9ce;#667395"></animate>
+                                                    </circle>
+                                                </g><g transform="rotate(144 50 50)">
+                                                    <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                        <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                        <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#667395;#292664"></animate>
+                                                    </circle>
+                                                </g><g transform="rotate(216 50 50)">
+                                                    <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                        <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                        <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#292664;#f5f4fa"></animate>
+                                                    </circle>
+                                                </g><g transform="rotate(288 50 50)">
+                                                    <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                        <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                        <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#f5f4fa;#b5ccf1"></animate>
+                                                    </circle>
+                                                </g></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="demo3-page6" class="page" style="display: none;">
+                                        <span>Azamon.com :)</span>
+                                        <div>
+                                            Thank you for paying! We're sending off the drones with your package.  Enjoy!
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                         <div>No Demo 4 yet, but you'll find it here when it is available</div>
                         <div>OK, if demo 4 is not yet available, you can't expect demo 5 to be here ;)</div>
                         <div>Nope, no demo 6 either :)</div>
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </div>
-</div>
-<div id="info" class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 row-title">
-                <h4>Ready to go in seconds</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-3">
-                <div id="info-box1" class="info-box opened-info">
-                    <div class="info-icon"><i class="hroc hroc-business"></i></div>
-                    <div class="info-title">Tangible improvments</div>
-                    <div class="info-circle"><div class="circle-icon"></div></div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <div id="info-box2" class="info-box">
-                    <div class="info-icon"><i class="hroc hroc-transport"></i></div>
-                    <div class="info-title">Fast as rocket</div>
-                    <div class="info-circle"><div class="circle-icon"></div></div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <div id="info-box3" class="info-box">
-                    <div class="info-icon"><i class="hroc hroc-technology"></i></div>
-                    <div class="info-title">Ideas to life</div>
-                    <div class="info-circle"><div class="circle-icon"></div></div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <div id="info-box4" class="info-box">
-                    <div class="info-icon"><i class="hroc hroc-search"></i></div>
-                    <div class="info-title">Discover Hostrocket</div>
-                    <div class="info-circle"><div class="circle-icon"></div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="info-text1" class="container-fluid info-text-holder">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="info-title-icon">
-                    <i class="hroc hroc-business"></i>
-                    <div>Tangible improvments</div>
-                </div>
-                <div class="info-text">
-                At vero eos et quas molestias excepturi sint occaecati cupiditate et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="info-text2" class="container-fluid info-text-holder info-closed">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="info-title-icon">
-                    <i class="hroc hroc-transport"></i>
-                    <div>Fast as rocket</div>
-                </div>
-                <div class="info-text">
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-et quas molestias excepturi sint occaecati cupiditate.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="info-text3" class="container-fluid info-text-holder info-closed">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="info-title-icon">
-                    <i class="hroc hroc-technology"></i>
-                    <div>Ideas to life</div>
-                </div>
-                <div class="info-text">
-                Blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-et quas molestias excepturi sint occaecati cupiditate at vero eos et accusamus et iusto odio dignissimos ducimus qui.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="info-text4" class="container-fluid info-text-holder info-closed">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="info-title-icon">
-                    <i class="hroc hroc-search"></i>
-                    <div>Discover Hostrocket</div>
-                </div>
-                <div class="info-text">
-                Praesentium voluptatum deleniti atque corrupti quos dolores
-et quas molestias excepturi sint occaecati at vero eos et accusamus et iusto odio dignissimos ducimus qui
-blanditiis cupiditate.
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="features" class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 row-title">
-                <h4>FRS features</h4>
-                <h5>Simple integration via DNS</h5>
-            </div>
-        </div>
-        <div class="row feature-row rtl-row">
-            <div class="col-sm-12 col-md-5 text-center">
-                <img class="feature-image" src="images/feature1.png">
-            </div>
-            <div class="col-sm-12 col-md-7">
-                <div class="feature-title">Security Guaranteed.</div>
-                <div class="feature-subtitle">Get Started Quickly & Easily</div>
-                <div class="feature-text">
-                    <p>Hostrocket network covers +250 countries and devices ranging from desktops and laptops to smart phones and tablets.</p>
-                    <p>As an advertiser you'll get instant access to an intuitive and easy-to-use self-serve interface and have +1 billion users a click away. Choose between a variety of advanced targeting options and set up conversion tracking to keep full control of your ROI</p>
-                </div>
-                <a class="feature-button" href="#">Select plan</a>
-            </div>
-        </div>
-        <div class="row feature-row">
-            <div class="col-sm-12 col-md-5 text-center">
-                <img class="feature-image" src="images/feature2.png">
-            </div>
-            <div class="col-sm-12 col-md-7">
-                <div class="feature-title">Fast as rocket.</div>
-                <div class="feature-subtitle">Get Started Quickly & Easily</div>
-                <div class="feature-text">
-                    <p>Hostrocket network covers +250 countries and devices ranging from desktops and laptops to smart phones and tablets.</p>
-
-                    <p>As an advertiser you'll get instant access to an intuitive and easy-to-use self-serve interface and have +1 billion users a click away. Choose between a variety of advanced targeting options and set up conversion tracking to keep full control of your ROI</p>
-                </div>
-                <a class="feature-button" href="#">Select plan</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="reasons" class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 row-title">
-                <h4>More reasons why you’ll love FRS</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="reason-box">
-                    <h5>Standard</h5>
-                    <p>...</p>
-                </div>
-                <div class="reason-box">
-                    <h5>Free</h5>
-                    <p>...</p>
-                </div>
-                <div class="reason-box">
-                    <h5>Intelligent</h5>
-                    <p>...</p>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <iframe class="vimeo" src="https://player.vimeo.com/video/72978544" width="100%" height="310" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -492,8 +365,7 @@ blanditiis cupiditate.
             </div>
         </div>
         <div class="row main-footer-content">
-            <p>Don't hesitate!<br> 
-                contact us.</p>
+            <p>Don't hesitate contacting us!</p>
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-1">
@@ -503,8 +375,8 @@ blanditiis cupiditate.
             </div>
             <div class="col-xs-12 col-md-5">
                 <div class="contact-box">
-                    <i class="hroc hroc-envelope"></i> 
-                    <a href="mailto:stephane.canon@thewearablebank.com?Subject=Hello%20Stéphane" target="_top">
+                    <i class="hroc hroc-envelope"></i>
+                    <a href="mailto:stephane.canon@thewearablebank.com?Subject=Hello%20Stéphane @ F.A.R." target="_top">
                         stephane.canon@thewearablebank.com
                     </a>
                 </div>
@@ -512,7 +384,7 @@ blanditiis cupiditate.
             <div class="col-xs-12 col-md-5">
                 <div class="contact-box">
                     <i class="hroc hroc-envelope"></i>
-                    <a href="mailto:patrice.kerremans@thewearablebank.com?Subject=Hello%20Stéphane" target="_top">
+                    <a href="mailto:patrice.kerremans@thewearablebank.com?Subject=Hello%20Patrice @ F.A.R." target="_top">
                         patrice.kerremans@thewearablebank.com
                     </a>
                 </div>
@@ -523,7 +395,7 @@ blanditiis cupiditate.
     </div>
 </div>
 <script src="js/jquery.min.js"></script>
-<script src="js/featherlight.min.js"></script> 
+<script src="js/featherlight.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/createjs.min.js"></script>
 <script src="js/slick.min.js"></script>
