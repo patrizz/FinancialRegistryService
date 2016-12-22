@@ -24,8 +24,8 @@
         },
         "x-amazon-apigateway-integration": {
           "requestTemplates": {
-            "text/html": "{\"name\" : $input.json('$.name')}",
-            "application/json": "{\"name\" : $input.json('$.name')}"
+            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName')}",
+            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName')}"
           },
           "responses": {
             ".*": {
@@ -36,6 +36,82 @@
             }
           },
           "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:create-ledger/invocations",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'POST,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
+    "/flexledger/event": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}",
+            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}"
+          },
+          "responses": {
+            ".*": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:add-to-ledger/invocations",
           "passthroughBehavior": "when_no_match",
           "httpMethod": "POST",
           "type": "aws"
