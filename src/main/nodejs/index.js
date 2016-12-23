@@ -73,7 +73,7 @@ function postCode(path, signedevent, callback) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('Response: ', chunk);
-            callback(null, chunk);
+            callback(chunk, null);
         });
         res.on('error', function (err) {
             console.log('Error: ', err);
@@ -305,14 +305,15 @@ exports.handler_addToLedger = function(event, context, callback) {
                 "type": "LedgerStorageEvent",
                 "replacesObject": [
                     {
-                        "id": "http://www.fatf-gafi.org/iban-clearinghouse/6844312",
+                        "id": "http://www.fatf-gafi.org/iban-clearinghouse/938121",
                         "type": [
                             "Credential",
-                            "FinancialWatchlistCredential"
+                            "OpenBanking_PSD2_RegitryCredential"
                         ],
                         "claim": {
-                            "id": "iban:"+event.iban,
-                            "watchList": "clear"
+                            "id": "LEI:931566398328492910600",
+                            "PISP": "Recognized Payment Initiation Service Provider",
+                            "AISP": "Recognized Account Initiation Service Provider"
                         }
                     }
                 ],
