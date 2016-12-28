@@ -2,6 +2,8 @@
 
 console.log("handler - top - 1");
 
+var sleep = require('sleep-promise');
+
 var querystring = require('querystring');
 
 var uuid = require("uuid");
@@ -18,14 +20,49 @@ var serviceUrl = "http://dhs2016ledger.digitalbazaar.com/ledgers";
 console.log("handler - top - 2");
 
 
-function getLedgerInfoByName(ledgerName, ledgerInfoCB) {
+function getLedgerInfoByName(ledgerName, ledgerInfoCB, cookiejar) {
     //http://dhs2016ledger.digitalbazaar.com/ledgers/<name>
-    http.get({
+    console.log("getLedgerInfoByName for ledgerName: " + ledgerName);
+    console.log("getLedgerInfoByName cookiejar before call: ", cookiejar);
+    var httpRequest = {
         hostname: 'dhs2016ledger.digitalbazaar.com',
         port: 80,
         path: '/ledgers/'+ledgerName,
         agent: false  // create a new agent just for this one request
-    }, function(response) {
+    };
+
+    if (cookiejar) {
+        httpRequest.headers = {
+            "Cookie": "XSRF-TOKEN="+cookiejar["XSRF-TOKEN"],
+            "XSRF-TOKEN": cookiejar["XSRF-TOKEN"]
+        };
+        console.log("headers:", httpRequest.headers);
+    }
+
+
+    http.get(
+        httpRequest,
+        function(response) {
+
+        console.log("resonse: ", response);
+        console.log("resonse headers: ", response.headers);
+
+        var cookiejar = [];
+
+        var setcookie = response.headers["set-cookie"];
+
+        console.log("setcookie: ", setcookie);
+
+        if ( setcookie ) {
+            setcookie.forEach(
+                function ( cookiestr ) {
+                    cookiejar.push(cookiestr);
+                }
+            );
+        }
+
+        console.log("getLedgerInfoByName cookiejar after call: ", cookiejar);
+
         // Continuously update stream with data
         var body = '';
         response.on('data', function(d) {
@@ -37,7 +74,7 @@ function getLedgerInfoByName(ledgerName, ledgerInfoCB) {
 
             // Data reception is done, do whatever with it!
             var parsed = JSON.parse(body);
-            ledgerInfoCB(parsed);
+            ledgerInfoCB(parsed, cookiejar);
         });
     });
 }
@@ -256,7 +293,7 @@ exports.handler_addToLedger = function(event, context, callback) {
     var ledgerName = event.ledgerName;
     console.log("getting ledger info for ledger with name:", ledgerName);
 
-    getLedgerInfoByName(ledgerName, function(ledgerInfo) {
+    getLedgerInfoByName(ledgerName, function(ledgerInfo, cookies) {
         /*
          {
             "id":"http://dhs2016ledger.digitalbazaar.com/ledgers/zerz",
@@ -275,6 +312,7 @@ exports.handler_addToLedger = function(event, context, callback) {
                 },
                 "nextEvent":{"id":"did:d8b9c96b-24ad-4f65-8de8-845af344693f/events/3"}
             }
+          }
          */
 
         console.log("info for ledger =", ledgerInfo);
@@ -312,6 +350,7 @@ exports.handler_addToLedger = function(event, context, callback) {
                         ],
                         "claim": {
                             "id": "LEI:931566398328492910600",
+                            "name": "Azamon Ltd",
                             "PISP": "Recognized Payment Initiation Service Provider",
                             "AISP": "Recognized Account Initiation Service Provider"
                         }
@@ -343,3 +382,192 @@ exports.handler_addToLedger = function(event, context, callback) {
 };
 
 console.log("handler - top - 4");
+
+var contains = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+
+            for(i = 0; i < this.length; i++) {
+                var item = this[i];
+
+                if((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        };
+    }
+
+    return indexOf.call(this, needle) > -1;
+};
+
+function loadEvent(ledgerName, eventid, cookiejar, loadEventCallback) {
+    console.log("loading event with id '" + eventid, cookiejar);
+    var httpRequest = {
+        hostname: 'dhs2016ledger.digitalbazaar.com',
+        port: 80,
+        path: '/ledgers/' + ledgerName + "/" + eventid,
+        agent: false,  // create a new agent just for this one request
+    };
+
+    var token = uuid();
+
+    httpRequest.headers = {
+        "Cookie": "XSRF-TOKEN="+token,
+        "XSRF-TOKEN": token,
+        'Content-Type': 'application/ld+json',
+        'Accept': 'application/ld+json, application/json, text/plain, */*',
+        //'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'en-US,en;q=0.8,de;q=0.6,es;q=0.4,fr;q=0.2,nl;q=0.2',
+        'Origin': 'http://dhs2016ledger.digitalbazaar.com',
+        'Referer': 'http://dhs2016ledger.digitalbazaar.com',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest'
+    };
+    console.log("headers:", httpRequest.headers);
+
+
+    console.log("request: ", httpRequest);
+
+    http.get(httpRequest, function (response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function (d) {
+            body += d;
+        });
+        response.on('end', function () {
+
+            console.log("body: ", body);
+
+            // Data reception is done, do whatever with it!
+            var parsed = JSON.parse(body);
+            console.log("calling loadEventCallback: ", parsed);
+            loadEventCallback(parsed);
+        });
+    });
+
+
+}
+
+exports.handler_findTppClaim = function(event, context, handlerCallback) {
+
+    console.log("starting handler_findTppClaim, event = ", event);
+
+    var ledgerName = event.ledgerName;
+    var tppId = event.tppId;
+    console.log("finding event info on ledger with name:", ledgerName);
+    console.log("finding event info for ttp with id:", tppId);
+
+    var cookiejar = [];
+    cookiejar["XSRF-TOKEN"]=uuid();
+
+    var betterHandlerCallback = function(errorObject, successObject) {
+        if (typeof(errorObject) != "undefined" && errorObject != null) {
+            handlerCallback(JSON.stringify(errorObject));
+            return;
+        }
+        if (typeof(successObject) != "undefined" && successObject != null) {
+            handlerCallback(null, JSON.stringify(successObject));
+            return;
+        }
+    };
+
+    getLedgerInfoByName(ledgerName, function(ledgerInfo, cookiejar) {
+        console.log("info for ledger =", ledgerInfo);
+        var eventLoaderUntilClaimFound = function(event) {
+            console.log("visiting event: ", event);
+            if (event != null && typeof(event) != "undefined") {
+                if (typeof(event.replacesObject) != "undefined") {
+                    console.log("replaces object defined", event.replacesObject);
+                    if (typeof(event.replacesObject[0].claim) != "undefined") {
+                        console.log("claim defined", event.replacesObject[0].claim);
+                        if (typeof(event.replacesObject[0].claim.id) != "undefined") {
+                            console.log("claim id defined", event.replacesObject[0].claim.id);
+                            if (event.replacesObject[0].claim.id.localeCompare(tppId) === 0) {
+                                console.log("id defined and matching the tppId requested, returning claim");
+                                betterHandlerCallback(null, event.replacesObject[0].claim);
+                                return;
+                            } else {
+                                console.log("id not matching");
+                                //do not call callback here don't stop here, we need to go tp next if/then check!  Maybe the previous event is a match!!
+                            }
+                        } else {
+                            console.log("claim id NOT defined");
+                        }
+                    } else {
+                        console.log("no claim defined");
+                        betterHandlerCallback({"error":"no claim defined"});
+                        return;
+                    }
+                } else {
+                    console.log("no replaces object defined");
+                    betterHandlerCallback({"error":"no replaces object defined"});
+                    return;
+                }
+                if (typeof(event.previousEvent) != "undefined") {
+                    console.log("previousEvent defined");
+                    if (typeof(event.previousEvent.id) != "undefined") {
+                        console.log("id defined");
+
+                        loadEvent(
+                            ledgerInfo.name,
+                            event.previousEvent.id,
+                            cookiejar,
+                            eventLoaderUntilClaimFound
+                        )
+
+                    } else {
+                        console.log("id not defined");
+                        betterHandlerCallback({"error":"previousEvent.id defined"});
+                        return;
+                    }
+                } else {
+                    console.log("no previousEvent defined");
+                    betterHandlerCallback({"error":"previousEvent defined"});
+                    return;
+                }
+            } else {
+                console.log("event==null");
+                betterHandlerCallback({"error":"event is null"});
+                return;
+            }
+            betterHandlerCallback({"error":"the impossible happened.  This line should be unreachable..."});
+            return;
+        };
+        try {
+            console.log("getting first event from ledgerInfo: ", ledgerInfo);
+            if (typeof(ledgerInfo.latestEvent) != "undefined") {
+                loadEvent(
+                    ledgerInfo.name,
+                    ledgerInfo.latestEvent.id,
+                    cookiejar,
+                    eventLoaderUntilClaimFound
+                )
+            } else {
+                console.log("failed to get latest event from ledgerInfo");
+            }
+            console.log("getting first event with cookiejar: ", cookiejar);
+
+
+
+        } catch(err) {
+            console.log("caught error", err);
+            betterHandlerCallback(err);
+        }
+    }, cookiejar)
+
+
+
+
+};
+
+console.log("handler - top - 5");
