@@ -183,6 +183,10 @@ div.use-case-setup {
     font-size: 1.2em;
 }
 
+.demo-link img {
+    width: 60%;
+}
+
 #use-case-text-left-more-text, #use-case-text-right-more-text, #use-case-text-third-more-text{
     display: block;
     position: absolute;
@@ -195,6 +199,17 @@ div.use-case-setup {
     font-size: 12px;
     padding-left: 1%;
     padding-right: 1%;
+}
+
+@media (max-width: 500px) {
+    #footer .contact-box {
+        font-size: 4vw;
+    }
+}
+@media (min-width: 500px) {
+    #footer .contact-box {
+        font-size: 22px;
+    }
 }
 
 @media (max-width: 720px) {
@@ -236,3 +251,4 @@ div.use-case-setup {
 #iban-cancel-third-button {
     background-color: lightgrey;
 }
+
