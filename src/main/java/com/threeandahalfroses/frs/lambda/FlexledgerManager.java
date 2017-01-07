@@ -1,6 +1,8 @@
-package com.threeandahalfroses.frs.lambda.flexledger;
+package com.threeandahalfroses.frs.lambda;
 
+import com.threeandahalfroses.commons.general.JSONUtility;
 import com.threeandahalfroses.commons.general.Utility;
+import com.threeandahalfroses.frs.lambda.flexledger.Flexledger;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -11,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -20,8 +23,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,15 @@ public class FlexledgerManager {
 
 
 
+    public FlexledgerManager() {
+        this(HttpClients.createDefault());
+    }
+
     public FlexledgerManager(HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
-    Flexledger getFlexledger(String name) {
+    public Flexledger getFlexledger(String name) {
         List<Flexledger> flexledgers = getflexledgers();
         for (Flexledger flexledger : flexledgers) {
             if (StringUtils.equals(flexledger.getName(), name)) {
@@ -52,7 +57,7 @@ public class FlexledgerManager {
         throw new NoSuchElementException(String.format("ledger with name '%s' not found", name));
     }
 
-    boolean createFlexledger(String name) {
+    public boolean createFlexledger(String name) {
 
         String bodyContent = "";
         try {
@@ -97,7 +102,7 @@ public class FlexledgerManager {
 
     }
 
-    List<Flexledger> getflexledgers() {
+    public List<Flexledger> getflexledgers() {
         List<Flexledger> flexledgers = new ArrayList<>();
         HttpUriRequest httpUriRequest = new HttpGet("http://dhs2016ledger.digitalbazaar.com/ledgers");
         httpUriRequest.addHeader("Accept", "application/ld+json, application/json, text/plain, */*");
@@ -139,4 +144,14 @@ public class FlexledgerManager {
     }
 
 
+    public void addParty(Flexledger flexledger, String partyName) {
+
+        JSONObject jsonObject = (JSONObject) JSONUtility.loadJSON("/add_party.json");
+        try {
+            jsonObject.put("id", Utility.generateUniqueId());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

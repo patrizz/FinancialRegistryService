@@ -1,7 +1,7 @@
-package com.threeandahalfroses.frs.lambda.flexledger;
+package com.threeandahalfroses.frs.lambda;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.utils.HttpClientUtils;
+import com.threeandahalfroses.frs.lambda.FlexledgerManager;
+import com.threeandahalfroses.frs.lambda.flexledger.Flexledger;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.junit.Before;

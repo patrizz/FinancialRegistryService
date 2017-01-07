@@ -1,0 +1,267 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <title>Financial Registry Service</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/featherlight.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.carousel-3d.default.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+
+<body>
+<nav id="mainNav" class="navbar navbar-default navbar-full">
+    <div class="container container-nav">
+        <div class="navbar-header">
+            <button aria-expanded="false" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="index.html">
+                Financial Address Registry
+            </a>
+        </div>
+        <div style="height: 1px;" aria-expanded="false" class="navbar-collapse collapse" id="bs">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#footer">Contact</a></li>
+                <!--li><a class="chat-button" href="#">Live Chat</a></li-->
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="top-content" class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 row-title">
+                <h3><b>Demo 3:</b> Pay online with your IBAN</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+
+                <div class="wrapper">
+                    <div>
+                        <div class="use-case-text third">
+                            <button id="use-case-text-third-more-button">more</button>
+                            <div id="use-case-text-third-more-text" data-hidden="true" style="display:none">
+                                <div class="use-case-setup third">
+                                    <div class="explanation">
+                                        Setup:
+                                        <ul>
+                                            <li>Global DNS</li>
+                                            <li>Country DNS</li>
+                                            <li>Alias is registered in Account Servicing Bank</li>
+                                            <li>After logon bank pays vendor</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="use-case-steps third">
+                                    <div class="explanation">
+                                        Steps:
+                                        <ul>
+                                            <li>User selects pay with IBAN and enters IBAN.</li>
+                                            <li>User is taken to the bank's website</li>
+                                            <li>User logs in</li>
+                                            <li>Bank verifies if payment can be accepted and performs payment</li>
+                                            <li>User is taken back to vendor</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="domain-form-holder third">
+                            <div id="leResult3"></div>
+                            <div class="page-holder">
+                                <div id="demo3-page1" class="page">
+                                    <span>Azamon.com :)</span>
+                                    <div>
+                                        Pay with IBAN
+                                        <form id="iban-form-third">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                        Total &euro;24,99
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-9 domain-text-holder">
+                                                        <input id="domain-text-third" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-3 btn-go-holder">
+                                                        <input id="pay-with-iban-button" class="btn-go" type="button" name="submit" value="go" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="demo3-page2" class="page" style="display: none;">
+
+                                </div>
+                                <div id="demo3-page3" class="page" style="display: none;">
+                                    <div class="iban-form-holder">
+                                        <div class="title"><span>MyBank.app</span></div>
+                                        <div class="verifying">
+                                            Verifying if this is a valid payment request (no funds are being transferred yet)...
+                                        </div>
+                                        <div class="glass">
+                                            <!-- kudos to http://loading.io/ //--->
+                                            <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-magnify"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="translate(8.38237 3.53826)"><circle fill="#8b8bfc" cx="47" cy="47" r="20" opacity="0.5"></circle><path d="M77.5,69.3l-6.2-6.2c-0.7-0.7-1.3-1.2-1.9-1.6c2.6-4,4.1-8.8,4.1-14c0-14.4-11.7-26.1-26.1-26.1S21.3,33.2,21.3,47.5 S33,73.6,47.4,73.6c5.4,0,10.4-1.6,14.5-4.4c0.5,0.7,1.1,1.4,1.9,2.2l5.8,5.8c2.9,2.9,7.1,3.5,9.2,1.3C81,76.4,80.4,72.2,77.5,69.3z M47.4,66.2c-10.3,0-18.7-8.4-18.7-18.6s8.4-18.6,18.7-18.6s18.7,8.4,18.7,18.6S57.7,66.2,47.4,66.2z" fill="#424242"></path><animateTransform attributeName="transform" type="translate" from="15 15" to="15 15" dur="1s" repeatCount="indefinite" values="15 15;-15 15;0 -10.98;15 15" keyTimes="0;0.33;0.66;1"></animateTransform></g></svg>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo3-page4" class="page" style="display: none;">
+                                    <div class="iban-form-holder">
+                                        <div class="title"><span>MyBank.app</span></div>
+                                        <div class="verifying">
+                                            Please confirm that the you wish to pay
+                                            <form id="iban-form-pay-confirm">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                            Total &euro;24,99
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                            <input id="iban-pay-third-button" class="btn-go" type="button" name="submit" value="pay!" />
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                            <input id="iban-cancel-third-button" class="btn-go" type="button" name="submit" value="cancel" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo3-page5" class="page" style="display: none;">
+                                    <div class="iban-form-holder">
+                                        <div class="title"><span>MyBank.app</span></div>
+                                        <div class="verifying">
+                                            Paid!<br><br>Taking you back to the vendor
+                                        </div>
+                                        <div>
+                                            <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="rotate(0 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#b5ccf1;#94a9ce"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(72 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#94a9ce;#667395"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(144 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#667395;#292664"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(216 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#292664;#f5f4fa"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(288 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#f5f4fa;#b5ccf1"></animate>
+                                                </circle>
+                                            </g></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo3-page6" class="page" style="display: none;">
+                                    <span>Azamon.com :)</span>
+                                    <div>
+                                        Thank you for paying! We're sending off the drones with your package.  Enjoy!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer" class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 row-title">
+                <h4>Get in touch</h4>
+                <h5>Any questions? Recommendations?</h5>
+            </div>
+        </div>
+        <div class="row main-footer-content">
+            <p>Don't hesitate contacting us!</p>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-1">
+                <!--div class="contact-box">
+                    <i class="hroc hroc-whatsapp"></i> +(038) 38 638036
+                </div-->
+            </div>
+            <div class="col-xs-12 col-md-5">
+                <div class="contact-box">
+                    <i class="hroc hroc-envelope"></i>
+                    <a href="mailto:stephane.canon@thewearablebank.com?Subject=Hello%20Stéphane @ F.A.R." target="_top">
+                        stephane.canon@thewearablebank.com
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-5">
+                <div class="contact-box">
+                    <i class="hroc hroc-envelope"></i>
+                    <a href="mailto:patrice.kerremans@thewearablebank.com?Subject=Hello%20Patrice @ F.A.R." target="_top">
+                        patrice.kerremans@thewearablebank.com
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-1">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/featherlight.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/createjs.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/iban.js"></script>
+<script src="js/ibanstuff.js"></script>
+<script src="js/typed.js"></script>
+<script>
+    if (window.innerWidth > 720) {
+        var head = document.getElementsByTagName('head')[0];
+
+        var s1 = document.createElement("script");
+        s1.type = "text/javascript";
+        s1.src = "js/jquery.waittorimages.2.2.0.js";
+        head.appendChild(s1);
+
+        var s2 = document.createElement("script");
+        s2.type = "text/javascript";
+        s2.src = "js/modernizr.min.2.8.3.js";
+        head.appendChild(s2);
+
+        var s3 = document.createElement("script");
+        s3.type = "text/javascript";
+        s3.src = "js/jquery.carousel-3d.min.js";
+        head.appendChild(s3);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://w3id.org/flex/v1",
+    "https://w3id.org/dhs/v1"
+  ],
+  "id": "%did%",
+  "type": "LedgerStorageEvent",
+  "replacesObject": [
+    {
+      "id": "http://www.fatf-gafi.org/iban-clearinghouse/3001105",
+      "type": [
+        "Credential",
+        "FinancialWatchlistCredential"
+      ],
+      "claim": {
+        "id": "iban:CH936014097791927127000",
+        "watchList": "clear"
+      }
+    }
+  ]
+}

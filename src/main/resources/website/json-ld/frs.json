@@ -1,0 +1,10 @@
+{
+  "@context": {
+    "id": "@id",
+    "type": "@type",
+    "psd2": "http://www.thewearablebank.com/psd2#",
+    "OpenBankingPSD2RegitryCredential": "psd2:OpenBankingPSD2RegitryCredential",
+    "pisp": "psd2:PISP",
+    "aisp": "psd2:AISP"
+  }
+}

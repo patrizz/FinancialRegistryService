@@ -31,10 +31,8 @@
         </div>
         <div style="height: 1px;" aria-expanded="false" class="navbar-collapse collapse" id="bs">
             <ul class="nav navbar-nav navbar-right">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#top-content">Demos</a></li>
-                    <li><a href="#footer">Contact</a></li>
-                </ul>
+                <li><a href="#footer">Contact</a></li>
+                <!--li><a class="chat-button" href="#">Live Chat</a></li-->
             </ul>
         </div>
     </div>
@@ -42,65 +40,69 @@
 <div id="top-content" class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 row-title text-center">
-                <h1>Using Internet standards and DNS infrastructure to support innovation in the financial ecosystem</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="reason-box">
-
-                    <h5>Problem Definition</h5>
-                    <p>Financial transactions are essentially about exchanging financial resources between accounts. Account numbers are financial addresses for financial transactions: they identify the source and the destination of the assets.
-                        <ul>
-                            <li>An important percentage of payments fail because the account number is not valid.</li>
-                            <li>Fraudsters can substitue account numbers. The payee cannot check the link between the account number and the beneficiary.</li>
-                            <li>Sanction screening is based on names, not necessarily on account numbers</li>
-                        </ul>
-                    </p>
-                    <h5>Solution</h5>
-                    <p>
-                        <ul>
-                            <li>Using DNS to resolve Account Numbers, just like DNS is resolving URLs, to reach the account servicing bank.</li>
-                            <li>Exposing “GetAccountDetails” at the account servicing bank</li>
-                            <li>Controlling information access to protect privacy while providing a value add service</li>
-                        </ul>
-                    </p>
-                    <h5>Value Proposition</h5>
-                    <p>It's standard - Low investment - Collaborative - Innovation enabling</p>
-                </div>
-            </div>
-            <!--div class="col-sm-12 col-md-6">
-                <div class="reason-box">
-                    <h5>Value Proposition: It's standard - Low investment - Collaborative - Innovation enabling</h5>
-                </div>
-            </div-->
-            <div class="col-sm-12 col-md-6">
-                <iframe class="youtube" width="100%" height="400" src="https://www.youtube.com/embed/X9OI-xeQbkM" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div id="reasons" class="container-fluid">
-    <div class="container">
-        <div class="row">
             <div class="col-xs-12 row-title">
-                <h4>Working Demoes!</h4>
+                <h2>Demo 1: Retrieve Beneficiary details from account number before confirming payment</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-3 text-center">
-                <a class="demo-link" href="demo1.html">demo #1<br><img src="images/demo1-thumbnail-small.png"><br>Retrieve Beneficiary details from account number before confirming payment</a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a class="demo-link" href="demo2.html">demo #2<br><img src="images/demo2-thumbnail-small.png"><br>Retrieve account number and Beneficiary details from Alias</a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a class="demo-link" href="demo3.html">demo #3<br><img src="images/demo3-thumbnail-small.png"><br>Pay online with your IBAN</a>
-            </div>
-            <div class="col-xs-3 text-center">
-                <a class="demo-link" href="demo4.html">demo #4<br><img src="images/demo4-thumbnail-small.png"><br>Under Construction</a>
+            <div class="col-xs-12 text-center">
+
+                <div class="wrapper">
+                    <div>
+                        <div class="use-case-text left">
+                            <button id="use-case-text-left-more-button">more</button>
+                            <div id="use-case-text-left-more-text" data-hidden="true" style="display:none">
+                                <div class="use-case-setup left">
+                                    <div class="explanation">
+                                        Setup:
+                                        <ul>
+                                            <li>Global DNS</li>
+                                            <li>Country DNS</li>
+                                            <li>GetAccountDetails service exposed by Account Servicing Bank</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="use-case-steps left">
+                                    <div class="explanation">
+                                        Steps:
+                                        <ul>
+                                            <li>Bank code of IBAN is retrieved and the following url is built: Bank.Country.openbanking.com</li>
+                                            <li>DNS returns URI of GetAccountDetails in the bank identified by BankCode</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="domain-form-holder left">
+                            <img class="euro-bill-left" src="images/small_euro_bill.png">
+                            <div id="leResult1"></div>
+                            <div class="iban-form-holder">
+                                <div class="title"><span>MyBank.app</span></div>
+                                <div class="avatar">
+                                    <img src="images/male.png">
+                                    Jake Jordan
+                                </div>
+                                <form id="iban-form-left">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                Send <input id="amount-text-left" class="domain-text" type="text" name="amount" value="&euro; 25" /> to
+                                            </div>
+                                            <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                <input id="domain-text-left" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
+                                            </div>
+                                            <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                <input id="search-iban-left" class="btn-go" type="button" name="submit" value="go" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
