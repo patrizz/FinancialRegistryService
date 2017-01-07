@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-09-23T22:19:49Z",
+    "version": "2016-12-28T20:00:34Z",
     "title": "Taahr-Iban-v1"
   },
   "host": "310.be.thewearablebank.com",
@@ -10,8 +10,78 @@
     "https"
   ],
   "paths": {
+    "/be": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "{'country':'be'}"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
+    "/de": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "{'country':'de'}"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
+        }
+      }
+    },
     "/flexledger": {
       "post": {
+        "consumes": [
+          "application/json",
+          "text/html"
+        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -23,10 +93,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName')}",
-            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName')}"
-          },
           "responses": {
             ".*": {
               "statusCode": "200",
@@ -34,6 +100,10 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName')}",
+            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName')}"
           },
           "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:create-ledger/invocations",
           "passthroughBehavior": "when_no_match",
@@ -88,6 +158,10 @@
     },
     "/flexledger/event": {
       "post": {
+        "consumes": [
+          "application/json",
+          "text/html"
+        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -99,10 +173,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}",
-            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}"
-          },
           "responses": {
             ".*": {
               "statusCode": "200",
@@ -110,6 +180,10 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "text/html": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}",
+            "application/json": "{\"ledgerName\" : $input.json('$.ledgerName'), \"iban\" : $input.json('$.iban')}"
           },
           "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:add-to-ledger/invocations",
           "passthroughBehavior": "when_no_match",
@@ -162,8 +236,61 @@
         }
       }
     },
-    "/be": {
+    "/flexledger/event/claim": {
       "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ledgerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tppId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"ledgerName\" : \"$input.params('ledgerName')\",\n    \"tppId\" : \"$input.params('tppId')\"\n}"
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-claim/invocations",
+          "passthroughBehavior": "when_no_templates",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws"
+        }
+      },
+      "options": {
         "consumes": [
           "application/json"
         ],
@@ -175,28 +302,74 @@
             "description": "200 response",
             "schema": {
               "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
             }
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
-              "responseTemplates": {
-                "application/json": "{'country':'be'}"
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
         }
       }
     },
-    "/de": {
+    "/flexledger/event/level": {
       "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }
+            }
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-claim/invocations",
+          "passthroughBehavior": "when_no_templates",
+          "httpMethod": "POST",
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws"
+        }
+      },
+      "options": {
         "consumes": [
           "application/json"
         ],
@@ -208,20 +381,33 @@
             "description": "200 response",
             "schema": {
               "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
             }
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
-              "responseTemplates": {
-                "application/json": "{'country':'de'}"
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
@@ -250,9 +436,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
@@ -263,6 +446,9 @@
                 "application/json": "{\"api\":\"https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/iban\",\"logon\":\"https://s3.eu-central-1.amazonaws.com/thewearablebank.com/be/310/310-be-logon-fragment.html\"}"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
@@ -295,9 +481,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
@@ -307,6 +490,9 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
@@ -355,11 +541,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "text/html": "{\"iban\" : \"$input.params('iban')\"}",
-            "application/json": "{\"iban\" : \"$input.params('iban')\"}"
-          },
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban/invocations",
           "responses": {
             "default": {
               "statusCode": "302",
@@ -369,6 +550,11 @@
               }
             }
           },
+          "requestTemplates": {
+            "text/html": "{\"iban\" : \"$input.params('iban')\"}",
+            "application/json": "{\"iban\" : \"$input.params('iban')\"}"
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban/invocations",
           "passthroughBehavior": "when_no_match",
           "httpMethod": "POST",
           "type": "aws"
@@ -401,9 +587,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
@@ -413,6 +596,9 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
@@ -453,11 +639,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "text/html": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}",
-            "application/json": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}"
-          },
-          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban-detail/invocations",
           "responses": {
             ".*": {
               "statusCode": "200",
@@ -467,6 +648,11 @@
               }
             }
           },
+          "requestTemplates": {
+            "text/html": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}",
+            "application/json": "{\"iban\" : \"$input.params('iban')\", \"bankCode\" : \"$input.params('bankCode')\"}"
+          },
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:521480341421:function:get-iban-detail/invocations",
           "passthroughBehavior": "when_no_match",
           "httpMethod": "POST",
           "type": "aws"
@@ -499,9 +685,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "requestTemplates": {
-            "application/json": "{\"statusCode\": 200}"
-          },
           "responses": {
             "default": {
               "statusCode": "200",
@@ -511,6 +694,9 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
+          },
+          "requestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"

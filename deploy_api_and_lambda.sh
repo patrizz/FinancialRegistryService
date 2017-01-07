@@ -49,6 +49,22 @@ aws lambda create-function \
 --timeout 300 \
 --memory-size 640
 
+echo "deleting get-claim function"
+aws lambda delete-function \
+--region eu-west-1 \
+--function-name 'get-claim'
+
+echo "creating get-claim function"
+aws lambda create-function \
+--region eu-west-1 \
+--function-name 'get-claim' \
+--code S3Bucket=deployjar-ireland,S3Key=frs.zip \
+--role 'arn:aws:iam::521480341421:role/OpenLabelsLambda' \
+--handler 'index.handler_findTppClaim' \
+--runtime 'nodejs4.3' \
+--timeout 300 \
+--memory-size 640
+
 #echo "creating iban-service-auth function"
 #aws lambda create-function \
 #--region eu-west-1 \
@@ -134,6 +150,14 @@ aws lambda add-permission \
 --principal "apigateway.amazonaws.com" \
 --statement-id $RANDOM$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM
 
+aws lambda add-permission \
+--region eu-west-1 \
+--function-name "arn:aws:lambda:eu-west-1:521480341421:function:get-claim" \
+--source-arn "arn:aws:execute-api:eu-west-1:521480341421:glozrhoqo9/*/GET/flexledger/event/claim" \
+--action "lambda:InvokeFunction" \
+--principal "apigateway.amazonaws.com" \
+--statement-id $RANDOM$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM
+
 #aws lambda add-permission \
 #--region eu-west-1 \
 #--function-name "arn:aws:lambda:eu-west-1:521480341421:function:get-iban" \
@@ -154,3 +178,7 @@ aws lambda add-permission \
 curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger
 
 curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "iban":"BE23423423423432"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
+
+curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "tppId":"lei:123"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
+
+curl "https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event/claim?ledgerName=patrice&tppId=lei:123"
