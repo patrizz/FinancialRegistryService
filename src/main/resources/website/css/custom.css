@@ -201,7 +201,19 @@ div.use-case-setup {
     padding-right: 1%;
 }
 
+@media (max-width: 800px) {
+    #top-content h1 {
+        font-size: 6vw;
+    }
+}
+
 @media (max-width: 500px) {
+    #top-content h1 {
+        font-size: 6vw;
+    }
+    #footer .contact-box {
+        font-size: 4vw;
+    }
     #footer .contact-box {
         font-size: 4vw;
     }
