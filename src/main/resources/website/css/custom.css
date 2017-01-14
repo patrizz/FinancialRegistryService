@@ -28,7 +28,7 @@ table#demo  {
     padding-top: 10px;
 }
 
-.domain-form-holder.left, .domain-form-holder.right, .domain-form-holder.third {
+.domain-form-holder.left, .domain-form-holder.right, .domain-form-holder.third, .domain-form-holder.forth {
     background-image: url("../images/smartphone.png");
     background-size:cover ;
     background-repeat: no-repeat;
@@ -187,7 +187,7 @@ div.use-case-setup {
     width: 60%;
 }
 
-#use-case-text-left-more-text, #use-case-text-right-more-text, #use-case-text-third-more-text{
+#use-case-text-left-more-text, #use-case-text-right-more-text, #use-case-text-third-more-text, #use-case-text-forth-more-text{
     display: block;
     position: absolute;
     background-color: #009500;
@@ -264,3 +264,10 @@ div.use-case-setup {
     background-color: lightgrey;
 }
 
+#iban-cancel-forth-button {
+    background-color: lightgrey;
+}
+
+#domain-text-forth {
+    height: 40px;
+}
