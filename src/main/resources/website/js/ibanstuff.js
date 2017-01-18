@@ -56,7 +56,6 @@ function flyBillFromR2L(callback) {
 
 }
 
-
 "use strict";
 $(document).ready(function(){
     console.log("attaching handler to iban-form");
@@ -127,7 +126,7 @@ $(document).ready(function(){
 	$("#pay-with-iban-button").click(function(e) {
 		e.preventDefault();
 		console.log("paying with iban");
-		var ibanString = $("#domain-text-left").val();
+		var ibanString = $("#domain-text-third").val();
 		if (IBAN.isValid(ibanString)) {
 			console.log("valid iban");
 			var cc = getCountryCode(ibanString).toLowerCase();
@@ -203,6 +202,106 @@ $(document).ready(function(){
 			});
 		}
 	});
+
+
+    $("#use-case-text-forth-more-button").click(function() {
+        console.log("third button clicked");
+        if ($("#use-case-text-third-more-text").data("hidden")) {
+            console.log("data hidden true");
+            $("#use-case-text-third-more-text").data("hidden", false);
+            $("#use-case-text-third-more-button").prop('disabled', true);
+            $("#use-case-text-third-more-text").fadeIn(function() {
+                $("#use-case-text-third-more-button").prop('disabled', false);
+                $("#use-case-text-third-more-button").text("less");
+            });
+        } else {
+            console.log("data hidden false");
+            $("#use-case-text-third-more-text").data("hidden", true);
+            $("#use-case-text-third-more-text").fadeOut(function() {
+                $("#use-case-text-third-more-button").prop('disabled', false);
+                $("#use-case-text-third-more-button").text("more");
+            });
+        }
+    });
+
+    $("#pay-with-bank-button").click(function(e) {
+        e.preventDefault();
+        console.log("paying with bank");
+        var bankString = $("#domain-text-forth").val();
+        console.log("valid bank");
+        var parts = bankString.split(":");
+        var cc = parts[0].toLowerCase();
+        var bc = parts[1].toLowerCase();
+
+        var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
+        console.log("calling url: ", url);
+        $.getJSON(url, function(data) {
+            console.log("processing result");
+            if (data.logon) {
+                $.get(data.logon + "?amount=2", function() {})
+                    .done(function(logonHtml) {
+                        $("#demo4-page2").html(logonHtml);
+                    }).fail(function() {
+                    //for now let's do some simple test stuff
+                    var testHtml = '<div class="iban-form-holder">'
+                        + '<div class="title"><span>MyBank.app</span></div>'
+                        + '	<div class="avatar">'
+                        + '	<img src="images/female.png">'
+                        + '	Jacky Jo'
+                        + '</div>'
+                        + '<div class="text">logon and confirm payment</div>'
+                        + '<form id="iban-form-logon-third">'
+                        + '	<div class="container-fluid">'
+                        + '	<div class="row">'
+                        + '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+                        + '	<input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo" />'
+                        + '	</div>'
+                        + '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+                        + '	<input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678" />'
+                        + '	</div>'
+                        + '	<div class="col-xs-12 col-md-12 btn-go-holder">'
+                        + '	<input id="logon-button" class="btn-go" type="button" name="submit" value="login" />'
+                        + '	</div>'
+                        + '	</div>'
+                        + '	</div>'
+                        + '	</form>'
+                        + '	</div>'
+                    $("#demo4-page2").html(testHtml);
+                    $("#demo4-page1").hide();
+                    $("#demo4-page2").show();
+                    $("#logon-button").click(function(e) {
+                        e.preventDefault();
+                        $("#demo4-page2").hide();
+                        $("#demo4-page3").show();
+                        //fake check, replace by ledger stuff here
+                        setTimeout(function() {
+                            $("#demo4-page3").hide();
+                            $("#demo4-page4").show();
+
+                            $("#iban-pay-forth-button").click(function(e) {
+                                $("#demo4-page4").hide();
+                                $("#demo4-page5").show();
+
+                                setTimeout(function() {
+                                    $("#demo4-page5").hide();
+                                    $("#demo4-page6").show();
+
+                                    setTimeout(function() {
+                                        $("#demo4-page6").hide();
+                                        $("#demo4-page1").show();
+                                    }, 4000);
+
+                                }, 4000);
+                            });
+
+                        }, 4000);
+                    });
+                });
+            } else {
+                console.log("no logon url in data");
+            }
+        });
+    });
 
 	$("#search-iban-left").click(function(e){
 		//console.log("e", e);
