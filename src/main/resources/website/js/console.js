@@ -1,7 +1,16 @@
+
 function addLine(line) {
     var scrollArea = $(".console-terminal");
     scrollArea.append(line);
     scrollArea.scrollTop(function() { return this.scrollHeight; });
+}
+
+function addEmptyConsoleLine() {
+    var line = $("<div></div>");
+    line.addClass("console-line");
+    line.addClass("line-color-white");
+    line.html("&nbsp;");
+    addLine(line);
 }
 
 function addConsoleLine(msg, color) {
