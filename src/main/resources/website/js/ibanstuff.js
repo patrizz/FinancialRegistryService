@@ -227,6 +227,7 @@ $(document).ready(function(){
     $("#pay-with-bank-button").click(function(e) {
         e.preventDefault();
         console.log("paying with bank");
+
         var bankString = $("#domain-text-forth").val();
         console.log("valid bank");
         var parts = bankString.split(":");
@@ -234,10 +235,17 @@ $(document).ready(function(){
         var bc = parts[1].toLowerCase();
 
         var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
+        addConsoleLine("Using DNS to resolve URL:");
+        addConsoleData(url);
         console.log("calling url: ", url);
         $.getJSON(url, function(data) {
             console.log("processing result");
+            addConsoleLine("Called URL an got result:");
+            addConsoleData(JSON.stringify(data));
             if (data.logon) {
+                addConsoleLine("Loading bank's LOGON url:");
+            	console.log("yeay logon present");
+                addConsoleData(data.logon);
                 $.get(data.logon + "?amount=2", function() {})
                     .done(function(logonHtml) {
                         $("#demo4-page2").html(logonHtml);
