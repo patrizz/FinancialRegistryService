@@ -125,17 +125,17 @@ $(document).ready(function(){
 
 	$("#pay-with-iban-button").click(function(e) {
 		e.preventDefault();
-		addConsoleLine("Validating IBAN: " + ibanString);
 		var ibanString = $("#domain-text-third").val();
-		if (IBAN.isValid(ibanString)) {
+        addConsoleLine("Validating IBAN: " + ibanString);
+        if (IBAN.isValid(ibanString)) {
             addConsoleLine("valid iban: " + ibanString);
 			var cc = getCountryCode(ibanString).toLowerCase();
 			var bc = getBankCode(ibanString);
 
 			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
-            addConsoleLine("calling url: ", url);
+            addConsoleLine("calling url: " + url);
 			$.getJSON(url, function(data) {
-                addConsoleLine("processing result");
+                addConsoleLine("Bank app loaded");
 				if (data.logon) {
 					$.get(data.logon + "?iban=" + ibanString.replace(/ /g, '+') + "&amount=2", function() {})
 						.done(function(logonHtml) {
@@ -170,6 +170,8 @@ $(document).ready(function(){
 						$("#demo3-page2").html(testHtml);
 						$("#demo3-page1").hide();
 						$("#demo3-page2").show();
+                    })
+					.always(function () {
 						$("#logon-button").click(function(e) {
 							e.preventDefault();
 							$("#demo3-page2").hide();
