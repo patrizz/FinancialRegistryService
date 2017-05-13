@@ -60,7 +60,7 @@ function flyBillFromR2L(callback) {
 $(document).ready(function(){
     console.log("attaching handler to iban-form");
 
-
+    addConsoleLine("                                                    ");
 
 	$("#use-case-text-left-more-button").click(function() {
 		console.log("left button clicked");
@@ -125,21 +125,23 @@ $(document).ready(function(){
 
 	$("#pay-with-iban-button").click(function(e) {
 		e.preventDefault();
-		console.log("paying with iban");
+		addConsoleLine("Validating IBAN: " + ibanString);
 		var ibanString = $("#domain-text-third").val();
 		if (IBAN.isValid(ibanString)) {
-			console.log("valid iban");
+            addConsoleLine("valid iban: " + ibanString);
 			var cc = getCountryCode(ibanString).toLowerCase();
 			var bc = getBankCode(ibanString);
 
 			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
-			console.log("calling url: ", url);
+            addConsoleLine("calling url: ", url);
 			$.getJSON(url, function(data) {
-				console.log("processing result");
+                addConsoleLine("processing result");
 				if (data.logon) {
 					$.get(data.logon + "?iban=" + ibanString.replace(/ /g, '+') + "&amount=2", function() {})
 						.done(function(logonHtml) {
 							$("#demo3-page2").html(logonHtml);
+                            $("#demo3-page1").hide();
+                            $("#demo3-page2").show();
 						}).fail(function() {
 						//for now let's do some simple test stuff
 						var testHtml = '<div class="iban-form-holder">'
@@ -228,6 +230,9 @@ $(document).ready(function(){
         e.preventDefault();
         console.log("paying with bank");
 
+        //make sure that the blockchin is properly populated
+
+
         var bankString = $("#domain-text-forth").val();
         console.log("valid bank");
         var parts = bankString.split(":");
@@ -235,114 +240,124 @@ $(document).ready(function(){
         var bc = parts[1].toLowerCase();
 
         var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
-        addConsoleLine("Using DNS to resolve URL:");
+        addConsoleLine("Building URL: " + url);
+        addConsoleLine("Using DNS to resolve URL of the bank:");
         addConsoleData(url);
+        addConsoleLine("&lt;Merchant calls the bank with payment parameters&gt;");
+        setTimeout(function() {
         console.log("calling url: ", url);
-        $.getJSON(url, function(data) {
+        	$.getJSON(url, function(data) {
             console.log("processing result");
             addConsoleLine("Called URL an got result:");
             addConsoleData(JSON.stringify(data));
             if (data.logon) {
-                addConsoleLine("Loading bank's LOGON url:");
-            	console.log("yeay logon present");
-                addConsoleData(data.logon);
-                $.get(data.logon + "?amount=2", function() {})
-                    .done(function(logonHtml) {
-                        $("#demo4-page1").hide();
-                        $("#demo4-page2").html(logonHtml);
-                        $("#demo4-page2").show();
-                    })
-					.fail(function() {
-						//for now let's do some simple test stuff
-						console.log("fail!")
-						var testHtml = '<div class="iban-form-holder">'
-							+ '<div class="title"><span>MyBank.app</span></div>'
-							+ '	<div class="avatar">'
-							+ '	<img src="images/female.png">'
-							+ '	Jacky Jo'
-							+ '</div>'
-							+ '<div class="text">logon and confirm payment</div>'
-							+ '<form id="iban-form-logon-third">'
-							+ '	<div class="container-fluid">'
-							+ '	<div class="row">'
-							+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
-							+ '	<input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo" />'
-							+ '	</div>'
-							+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
-							+ '	<input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678" />'
-							+ '	</div>'
-							+ '	<div class="col-xs-12 col-md-12 btn-go-holder">'
-							+ '	<input id="logon-button" class="btn-go" type="button" name="submit" value="login" />'
-							+ '	</div>'
-							+ '	</div>'
-							+ '	</div>'
-							+ '	</form>'
-							+ '	</div>'
-						$("#demo4-page2").html(testHtml);
-						$("#demo4-page1").hide();
-						$("#demo4-page2").show();
-                	})
-					.always(function() {
-                        $("#logon-button").click(function(e) {
-                            e.preventDefault();
-                            $("#demo4-page2").hide();
-                            $("#demo4-page3").show();
-                            addConsoleLine("user logged in");
-                            addEmptyConsoleLine();
-                            addConsoleLine("Now, verifying in the blockchain that Azamon is a trusted party");
-                            //fake check, replace by ledger stuff here
-							
-                            setTimeout(function() {
-                                $("#demo4-page3").hide();
-                                $("#demo4-page4").show();
-                                addConsoleData("--> Azamon is a trusted party, bank can pay them...");
 
-                                $("#iban-pay-forth-button").click(function(e) {
-                                    $("#demo4-page4").hide();
-                                    $("#demo4-page5").show();
-									addConsoleLine("Payment made to Azamon and now sending user back to Azamon with payment confirmation")
-                                    setTimeout(function() {
-                                        $("#demo4-page5").hide();
-                                        $("#demo4-page6").show();
-                                        addEmptyConsoleLine();
-                                        addConsoleLine("Back at Azamon.  Azamon will be paid by bank, user gets the goods.");
-                                        setTimeout(function() {
-                                            $("#demo4-page6").hide();
-                                            $("#demo4-page1").show();
-                                            addEmptyConsoleLine();
-                                            addConsoleLine("All done.");
-                                        }, 4000);
+				addConsoleLine("Now, verifying in the blockchain that Azamon is a trusted party");
 
-                                    }, 4000);
-                                });
+                $("#demo4-page1").hide();
+                $("#demo4-page3").show();
 
-                            }, 4000);
-                        });
-					});
+				setTimeout(function() {
+
+					addConsoleData("--> Azamon is a trusted party, bank can pay them...");
+					//setTimeout(function() {
+						addConsoleLine("Loading bank's LOGON url:");
+						console.log("yeay logon present");
+						addConsoleData(data.logon);
+						$.get(data.logon + "?amount=2", function () {
+						})
+							.done(function (logonHtml) {
+								$("#demo4-page3").hide();
+								$("#demo4-page2").html(logonHtml);
+								$("#demo4-page2").show();
+							})
+							.fail(function () {
+								//for now let's do some simple test stuff
+								console.log("fail!")
+								var testHtml = '<div class="iban-form-holder">'
+									+ '<div class="title"><span>MyBank.app</span></div>'
+									+ '	<div class="avatar">'
+									+ '	<img src="images/female.png">'
+									+ '	Jacky Jo'
+									+ '</div>'
+									+ '<div class="text">logon and confirm payment</div>'
+									+ '<form id="iban-form-logon-third">'
+									+ '	<div class="container-fluid">'
+									+ '	<div class="row">'
+									+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+									+ '	<input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo" />'
+									+ '	</div>'
+									+ '	<div class="col-xs-12 col-md-12 domain-text-holder">'
+									+ '	<input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678" />'
+									+ '	</div>'
+									+ '	<div class="col-xs-12 col-md-12 btn-go-holder">'
+									+ '	<input id="logon-button" class="btn-go" type="button" name="submit" value="login" />'
+									+ '	</div>'
+									+ '	</div>'
+									+ '	</div>'
+									+ '	</form>'
+									+ '	</div>'
+								$("#demo4-page2").html(testHtml);
+								$("#demo4-page3").hide();
+								$("#demo4-page2").show();
+							})
+							.always(function () {
+								$("#logon-button").click(function (e) {
+									e.preventDefault();
+									$("#demo4-page2").hide();
+									$("#demo4-page4").show();
+									addConsoleLine("user logged in");
+									addEmptyConsoleLine();
+									$("#iban-pay-forth-button").click(function (e) {
+										$("#demo4-page4").hide();
+										$("#demo4-page5").show();
+										addConsoleLine("Payment made to Azamon and now sending user back to Azamon with payment confirmation")
+										setTimeout(function () {
+											$("#demo4-page5").hide();
+											$("#demo4-page6").show();
+											addEmptyConsoleLine();
+											addConsoleLine("Back at Azamon.  Azamon will be paid by bank, user gets the goods.");
+											setTimeout(function () {
+												$("#demo4-page6").hide();
+												$("#demo4-page1").show();
+												addEmptyConsoleLine();
+												addConsoleLine("All done.");
+											}, 4000);
+
+										}, 4000);
+									});
+								});//
+							}, 4000);
+					//}, 4000);
+
+					}, 4000);
             } else {
                 console.log("no logon url in data");
             }
         });
+        }, 2000);
     });
 
 	$("#search-iban-left").click(function(e){
 		//console.log("e", e);
 		e.preventDefault();
+		addConsoleLine("Looking to resolve IBAN owning bank");
 		var ibanString = $("#domain-text-left").val();
 		if (IBAN.isValid(ibanString)) {
 			console.log("valid iban");
 			var cc = getCountryCode(ibanString).toLowerCase();
 			var bc = getBankCode(ibanString);
-
 			var url = "https://" + cc + bc + ".thewearablebank.com/get-api";
-			console.log("calling url: ", url);
+            addConsoleData("Resolved, calling url: " + url);
 			$.getJSON(url, function(data) {
 				console.log("succes", data);
 				if (data.api) {
+                    addConsoleData("Got data api url: " + data.api);
+                    addConsoleLine("Calling data api");
 					$.getJSON(data.api + "?iban=" + ibanString.replace(/ /g, '+'), function(ibanData) {
 						console.log("iban data", ibanData);
 						var configuration = {};
-
+                        addConsoleLine("Got data on IBAN certified by the bank");
 						var leDiv = $("#leResult1");
 						leDiv.empty();
 						leDiv.append("<div class='info'><label><u>Beneficiary</u></label><span>" + ibanData.bankCode + "</span></div>");
@@ -354,8 +369,10 @@ $(document).ready(function(){
 						var confirmA = $("<a href='#'>Confirm</a>");
 						confirmA.click(function(e) {
 							e.preventDefault();
-
+							addEmptyConsoleLine();
+                            addConsoleData("Confirming");
 							flyBillFromL2R(function() {
+                                addConsoleData("Confirmed!");
 								leDiv.empty();
 								leDiv.append("<div class='info'><label>Payment</label><span>done</span></div>");
 
@@ -404,6 +421,8 @@ $(document).ready(function(){
 	$("#search-iban-right").click(function(e){
 		//console.log("e", e);
 		e.preventDefault();
+		clearConsoleLine();
+		addConsoleLine("Getting IBAN locally for alias");
 		var alias = $("#domain-text-right").val();
 		/*
 		for (var i=0; i<99; i++) {
@@ -414,6 +433,7 @@ $(document).ready(function(){
 		var ibanString = mapAliasToIBAN(alias);
 		if (IBAN.isValid(ibanString)) {
 			console.log("valid iban");
+            addConsoleData("Got IBAN: " + ibanString);
 			var cc = getCountryCode(ibanString).toLowerCase();
 			var bc = getBankCode(ibanString);
 
@@ -422,11 +442,15 @@ $(document).ready(function(){
 
 
 			console.log("calling url: ", url);
+			addConsoleData("calling url: " + url);
 			$.getJSON(url, function(data) {
 				console.log("succes", data);
+                addConsoleData("Got the api endpoint");
 				if (data.api) {
+                    addConsoleLine("Calling the api");
 					$.getJSON(data.api + "?iban=" + ibanString.replace(/ /g, '+'), function(ibanData) {
 						console.log("iban data", ibanData);
+                        addConsoleData("Got data certified by the bank");
 						var configuration = {};
 
 						var leDiv = $("#leResult2");
@@ -438,9 +462,12 @@ $(document).ready(function(){
 
 
 						var confirmA = $("<a href='#'>Confirm</a>");
+
 						confirmA.click(function(e) {
 							e.preventDefault();
+                            addConsoleData("Confirming");
 							flyBillFromR2L(function() {
+                                addConsoleData("Confirmed!");
 								//$("#leResult2").hide();
 								//$("#leResult2").css("z-index", "-100");
 								//$(".right .iban-form-holder").show();

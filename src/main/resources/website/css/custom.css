@@ -176,6 +176,7 @@ div.use-case-setup {
 
 .domain-form-holder {
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .demo-link {
@@ -316,6 +317,7 @@ div.use-case-setup {
     height: 380px;
     padding-left: 5px;
     padding-right: 5px;
+    min-width: 420px;
 }
 
 .console-scroll-area {

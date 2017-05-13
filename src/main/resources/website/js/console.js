@@ -1,3 +1,8 @@
+function clearConsoleLine() {
+    var scrollArea = $(".console-terminal");
+    scrollArea.empty();
+}
+
 
 function addLine(line) {
     var scrollArea = $(".console-terminal");

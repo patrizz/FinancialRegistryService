@@ -128,6 +128,7 @@ aws apigateway put-rest-api \
 
 echo "deploying API to dev environment"
 aws apigateway create-deployment \
+                --region eu-west-1 \
                --rest-api-id glozrhoqo9 \
                --stage-name "dev"
 
@@ -177,8 +178,9 @@ aws lambda add-permission \
 
 curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger
 
-curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "iban":"BE23423423423432"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
 
-curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "tppId":"lei:123"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
+#curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "iban":"BE23423423423432"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
 
-curl "https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event/claim?ledgerName=patrice&tppId=lei:123"
+#curl -H "Content-Type: application/json" -X POST  -d '{"ledgerName":"patrice", "tppId":"lei:123"}' https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event
+
+#curl "https://glozrhoqo9.execute-api.eu-west-1.amazonaws.com/dev/flexledger/event/claim?ledgerName=patrice&tppId=lei:123"

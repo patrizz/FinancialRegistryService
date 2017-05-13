@@ -1,8 +1,12 @@
 //https://github.com/TylerPachal/lambda-node-phantom/blob/master/README.md
 
+const Browser = require('zombie');
+
 console.log("handler - top - 1");
 
-var sleep = require('sleep-promise');
+var ledgerName = "fdg"; //hardcoded this, others don't need to be able to specify their own name =)
+
+//var sleep = require('sleep-promise');
 
 var querystring = require('querystring');
 
@@ -110,11 +114,11 @@ function postCode(path, signedevent, callback) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('Response: ', chunk);
-            callback(chunk, null);
+            callback(null, chunk);
         });
         res.on('error', function (err) {
             console.log('Error: ', err);
-            callback(err, null);
+            callback(JSON.stringify(err), null);
         });
     });
 
@@ -144,84 +148,56 @@ function signIt(unsignedEvent, callback) {
         console.log("about to sign");
         var sign = jsig.promises.sign(unsignedEvent, signingOptions);
         sign.then(function(signedEvent) {
-            console.log("writing to ledger - signed event", signedEvent);
+            console.log("signIt - signed event", signedEvent);
             // write the ledger event
 
-            callback(signedEvent, null);
+            callback(null, signedEvent);
         }, function(err) {
-            console.log("writing to ledger - err", err);
+            console.log("signIt - err", err);
+            callback(JSON.stringify(err), null);
         });
         console.log("signing fired");
 
 
     } catch(err) {
         console.log("caught error", err);
-        callback(null, JSON.stringify(err));
+        callback(JSON.stringify(err), null);
     }
 }
 
 exports.handler_createLedger = function(event, context, callback) {
 
     console.log("starting handler_createLedger, event = ", event);
-    var ledgerName = event.ledgerName;
+
+// We're going to make requests to http://example.com/signup
+// Which will be routed to our test server localhost:3000
+    Browser.localhost('dhs2016ledger.digitalbazaar.com', 80);
+
+    const browser = new Browser();
+
+    browser.visit("/", function() {
+
+        var button = browser.query('button.btn-success');
+
+        browser.fire(button, "click", function () {
+            setTimeout(function() {
+                browser
+                    .fill('name', 'josy')
+                    .fill('description', 'nosy')
+                    .pressButton('Create', function () {
+                        callback({"result": "OK"}, null);
+                    });
+            }, 5000);
+
+        });
+    });
+
+
+    //var ledgerName = event.ledgerName;    //hardcoded, others don't need to be able to specify their own name =)
+
     console.log("ledgerName", ledgerName);
 
-    try {
-        console.log("defining unsigned event to create ledger");
-        var did = uuid();
-        //did =did.replace(/-/g, "");
-        console.log("did=", did);
-        var unsignedEvent = {
-            //"@context": "http://dhs2016ledger.digitalbazaar.com/contexts/flex-v1.jsonld",
-            //"@context": "https://w3id.org/flex/v1",
-            "@context": [
-                "https://w3id.org/flex/v1",
-                "https://w3id.org/dhs/v1"
-            ],
-            "id": "did:" + did + "/events/1",
-            "type": "LedgerConfigurationEvent",
-            "ledgerConfig": {
-                "id": "did:" + did,
-                "type": "LedgerConfiguration",
-                "name": ledgerName,
-                "description": "superledger",
-                "storageMechanism": "SequentialList",
-                "consensusAlgorithm": {
-                    "type": "ProofOfSignature2016",
-                    "approvedSigner": [
-                        "http://dhs2016ledger.digitalbazaar.com/keys/cbp-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/ice-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/cis-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/tsa-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/fletc-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/fema-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/us-cert-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/occ-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/cg-key-1",
-                        "http://dhs2016ledger.digitalbazaar.com/keys/ss-key-1"
-                    ],
-                    "minimumSignaturesRequired": 1
-                }
-            },
-            "previousEvent": {
-                "hash": "urn:sha256:0000000000000000000000000000000000000000000000000000000000000000"
-            }
-        };
-        console.log("unsigned event defined", unsignedEvent);
-        signIt(unsignedEvent, function(signedEvent, error) {
-            if (signedEvent != null) {
-                console.log("posting CREATE LEDGER event", signedEvent);
-                postCode('/ledgers', signedEvent, callback);
-            } else {
-                console.log("darn", error);
-            }
-        });
 
-
-    } catch(err) {
-        console.log("caught error", err);
-        callback(null, JSON.stringify(err));
-    }
 
 };
 
@@ -229,7 +205,8 @@ exports.handler_addToLedger = function(event, context, callback) {
 
     console.log("starting handler_addToLedger, event = ", event);
 
-    var ledgerName = event.ledgerName;
+    //var ledgerName = event.ledgerName;    //hardcoded, others don't need to be able to specify their own name =)
+
     console.log("getting ledger info for ledger with name:", ledgerName);
 
     getLedgerInfoByName(ledgerName, function(ledgerInfo, cookies) {
@@ -351,6 +328,9 @@ var contains = function(needle) {
 
 function loadEvent(ledgerName, eventid, cookiejar, loadEventCallback) {
     console.log("loading event with id '" + eventid, cookiejar);
+
+    //var ledgerName = event.ledgerName;    //hardcoded, others don't need to be able to specify their own name =)
+    
     var httpRequest = {
         hostname: 'dhs2016ledger.digitalbazaar.com',
         port: 80,
@@ -401,7 +381,7 @@ exports.handler_findTppClaim = function(event, context, handlerCallback) {
 
     console.log("starting handler_findTppClaim, event = ", event);
 
-    var ledgerName = event.ledgerName;
+    //var ledgerName = event.ledgerName;    //hardcoded, others don't need to be able to specify their own name =)
     var tppId = event.tppId;
     console.log("finding event info on ledger with name:", ledgerName);
     console.log("finding event info for ttp with id:", tppId);
