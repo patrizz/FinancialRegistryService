@@ -176,6 +176,7 @@ div.use-case-setup {
 
 .domain-form-holder {
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .demo-link {
@@ -252,7 +253,7 @@ div.use-case-setup {
 @media (min-width: 720px) {
     .wrapper {
         /* height: 600px; */
-        width: 100%;
+        /*width: 100%;*/
     }
 }
 
@@ -270,4 +271,56 @@ div.use-case-setup {
 
 #domain-text-forth {
     height: 40px;
+}
+
+.console-wrapper {
+    height: 600px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+}
+.console {
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: black;
+    border-radius: 5px;
+    height: 400px;
+}
+.console-header {
+    background-color: #ddd;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.console-line {
+    font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+}
+
+.line-color-gray {
+    color: darkgray;
+}
+
+.line-color-ligthgray {
+    color: gray;
+}
+
+.line-color-white {
+    color: white;
+}
+
+.console-terminal {
+    overflow-y: scroll;
+    height: 380px;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 420px;
+}
+
+.console-scroll-area {
+
+
 }
