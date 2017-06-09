@@ -124,6 +124,7 @@ $(document).ready(function(){
 	});
 
 
+
     $("#pay-with-token").click(function(e) {
         e.preventDefault();
         console.log("paying with bank");
@@ -134,71 +135,50 @@ $(document).ready(function(){
         var bankString = $("#domain-text-forth").val();
         console.log("valid bank");
 
-
-
-        addConsoleLine("Now, verifying the token");
-
-        $("#demo0-page1").hide();
-        $("#demo0-page3").show();
-
-        setTimeout(function() {
-
+        $("#pay-with-token-logon-button").click(function(e) {
+            e.preventDefault();
+            addConsoleData("Logging on");
+            addConsoleData("--> verifying the token");
             addConsoleData("--> token ok, get data...");
             //setTimeout(function() {
             addConsoleLine("Loading bank's LOGON page");
             console.log("yeay logon present");
-            var testHtml = '<div class="iban-form-holder">'
-                + '<div class="title"><span>MyBank.app</span></div>'
-                + '	<div class="avatar">'
-                + '	<img src="images/female.png">'
-                + '	Jacky Jo'
-                + '</div>'
-                + '<div class="text">logon and confirm payment</div>'
-                + '<form id="iban-form-logon-third">'
-                + '	<div class="container-fluid">'
-                + '	<div class="row">'
-                + '	<div class="col-xs-12 col-md-12 domain-text-holder">'
-                + '	<input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo" />'
-                + '	</div>'
-                + '	<div class="col-xs-12 col-md-12 domain-text-holder">'
-                + '	<input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678" />'
-                + '	</div>'
-                + '	<div class="col-xs-12 col-md-12 btn-go-holder">'
-                + '	<input id="logon-button" class="btn-go" type="button" name="submit" value="login" />'
-                + '	</div>'
-                + '	</div>'
-                + '	</div>'
-                + '	</form>'
-                + '	</div>'
-            $("#demo0-page2").html(testHtml);
-            $("#demo0-page3").hide();
-            $("#demo0-page2").show();
-			$("#logon-button").click(function (e) {
-				e.preventDefault();
-				$("#demo0-page2").hide();
-				$("#demo0-page4").show();
-				addConsoleLine("user logged in");
-				addEmptyConsoleLine();
-				$("#iban-pay-forth-button").click(function (e) {
-					$("#demo0-page4").hide();
-					$("#demo0-page5").show();
-					addConsoleLine("Payment made to JJ")
-					setTimeout(function () {
-						$("#demo0-page5").hide();
-						$("#demo0-page6").show();
-						addEmptyConsoleLine();
-						addConsoleLine("done. going back to other app");
-						setTimeout(function () {
-							$("#demo0-page6").hide();
-							$("#demo0-page1").show();
-							addEmptyConsoleLine();
-							addConsoleLine("All done.");
-						}, 4000);
 
-					}, 4000);
-				});
-			});//
-        }, 4000);
+            $("#demo0-page3").show();
+            $("#demo0-page2").hide();
+            setTimeout(function() {
+                $("#demo0-page4").show();
+                $("#demo0-page3").hide();
+                addConsoleLine("Token verified");
+                addEmptyConsoleLine();
+                $("#iban-pay-forth-button").click(function (e) {
+                    $("#demo0-page4").hide();
+                    $("#demo0-page5").show();
+                    addConsoleLine("Payment made to JJ")
+                    setTimeout(function () {
+                        $("#demo0-page5").hide();
+                        $("#demo0-page6").show();
+                        addEmptyConsoleLine();
+                        addConsoleLine("done. going back to other app");
+                        setTimeout(function () {
+                            $("#demo0-page6").hide();
+                            $("#demo0-page1").show();
+                            addEmptyConsoleLine();
+                            addConsoleLine("All done.");
+                        }, 4000);
+
+                    }, 4000);
+                });
+			}, 4000);
+        });
+
+        addConsoleLine("Loading bank's LOGON page");
+
+        $("#demo0-page1").hide();
+        $("#demo0-page2").show();
+
+        
+
     });
 
 	$("#pay-with-iban-button").click(function(e) {
