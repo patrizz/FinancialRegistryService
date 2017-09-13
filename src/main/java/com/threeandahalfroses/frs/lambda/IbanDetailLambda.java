@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.threeandahalfroses.frs.IbanUtility;
 import com.threeandahalfroses.frs.Utility;
+import com.threeandahalfroses.frs.lambda.iban.IbanDetailGetRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.iban4j.Iban;
 import org.json.simple.JSONAware;

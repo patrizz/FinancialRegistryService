@@ -49,6 +49,9 @@
             <version>3.2.1</version>
         </dependency>
 
+
+
+
         <!-- LAMBDA -->
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -71,6 +74,12 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>1.11.100</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/dnsjava/dnsjava -->
         <dependency>
             <groupId>dnsjava</groupId>
@@ -81,14 +90,24 @@
         <dependency>
             <groupId>com.github.jsonld-java</groupId>
             <artifactId>jsonld-java</artifactId>
-            <version>0.8.3</version>
+            <version>0.11.0</version>
         </dependency>
         <dependency>
             <groupId>com.threeandahalfroses.commons</groupId>
             <artifactId>commons</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bitbucket.b_c</groupId>
+            <artifactId>jose4j</artifactId>
+            <version>0.5.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
