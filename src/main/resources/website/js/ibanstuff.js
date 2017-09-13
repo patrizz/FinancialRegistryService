@@ -123,6 +123,65 @@ $(document).ready(function(){
 		}
 	});
 
+
+
+    $("#pay-with-token").click(function(e) {
+        e.preventDefault();
+        console.log("paying with Token");
+
+        //make sure that the blockchin is properly populated
+
+        
+        var bankString = $("#domain-text-forth").val();
+        console.log("valid bank");
+
+        $("#pay-with-token-logon-button").click(function(e) {
+            e.preventDefault();
+            addConsoleData("Logging on");
+            addConsoleData("--> verifying the token");
+            addConsoleData("--> token ok, get data...");
+            //setTimeout(function() {
+            addConsoleLine("Loading bank's confirmation page");
+            console.log("yeay logon present");
+
+            $("#demo0-page3").show();
+            $("#demo0-page2").hide();
+            setTimeout(function() {
+                $("#demo0-page4").show();
+                $("#demo0-page3").hide();
+                addConsoleLine("confirmation page loaded");
+                addEmptyConsoleLine();
+                $("#iban-pay-forth-button").click(function (e) {
+                    $("#demo0-page4").hide();
+                    $("#demo0-page5").show();
+                    addConsoleLine("Payment to JJ in progress")
+                    setTimeout(function () {
+                        addConsoleLine("Payment made to JJ")
+                        $("#demo0-page5").hide();
+                        $("#demo0-page6").show();
+                        addEmptyConsoleLine();
+                        addConsoleLine("done. going back to other app");
+                        setTimeout(function () {
+                            $("#demo0-page6").hide();
+                            $("#demo0-page1").show();
+                            addEmptyConsoleLine();
+                            addConsoleLine("All done.");
+                        }, 4000);
+
+                    }, 4000);
+                });
+			}, 4000);
+        });
+
+        addConsoleLine("Loading bank's LOGON page");
+
+        $("#demo0-page1").hide();
+        $("#demo0-page2").show();
+
+        
+
+    });
+
 	$("#pay-with-iban-button").click(function(e) {
 		e.preventDefault();
 		var ibanString = $("#domain-text-third").val();

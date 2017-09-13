@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
-    <title>Financial Registry Service - Demo3: PSD2 Payment</title>
+    <title>Financial Registry Service - Demo0: PSD2 Payment</title>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -49,7 +49,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 row-title">
-                <h3><b>Demo 3:</b> Pay online with your IBAN</h3>
+                <h3><b>Demo 0:</b> Pay with Token</h3>
             </div>
         </div>
         <div class="row">
@@ -86,35 +86,64 @@
                             </div>
                         </div-->
                         <div class="domain-form-holder third">
-                            <div id="leResult3"></div>
+                            <div id="leResult0"></div>
                             <div class="page-holder">
-                                <div id="demo3-page1" class="page">
-                                    <span>Azamon.com :)</span>
+                                <div id="demo0-page1" class="page">
+                                    <span>Email App</span>
                                     <div>
-                                        Pay with IBAN
-                                        <form id="iban-form-third">
+                                        <div class="row">
+<pre style="width: 95%;text-align: left; font-size: 11px;">
+from: your.friend@nice.com
+to: you@yourself.you
+title: payment
+
+Hey You,
+
+Your friend JJ sent you a
+    request to pay.
+
+"Your participation for
+    Fiona's birthday present"
+    
+       <a id="pay-with-token" href="">follow request
+              to payment link</a>.
+
+Cheers,
+Me
+
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo0-page2" class="page" style="display: none;">
+                                    <div class="iban-form-holder">
+                                        <div class="title">
+                                            <span>MyBank.app</span>
+                                        </div>
+                                        <div class="avatar">
+                                            <img src="images/female.png">
+                                            Jacky Jo
+                                        </div>
+                                        <div class="text">logon and confirm payment</div>
+                                        <form id="iban-form-logon-third">
                                             <div class="container-fluid">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-md-12 domain-text-holder">
-                                                        Total &euro;24,99
+                                                        <input id="domain-text-username-third" class="domain-text" type="text" name="domain" value="jackyjo">
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-md-9 domain-text-holder">
-                                                        <input id="domain-text-third" class="domain-text" type="text" name="domain" value="BE10 3101 1234 2345" />
+                                                    <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                        <input id="domain-text-password-third" class="domain-text" type="password" name="domain" value="12345678">
                                                     </div>
-                                                    <div class="col-xs-12 col-md-3 btn-go-holder">
-                                                        <input id="pay-with-iban-button" class="btn-go" type="button" name="submit" value="go" />
+                                                    <div class="col-xs-12 col-md-12 btn-go-holder">
+                                                        <input id="pay-with-token-logon-button" class="btn-go" type="button" name="submit" value="login">
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div id="demo3-page2" class="page" style="display: none;">
 
-                                </div>
-                                <div id="demo3-page3" class="page" style="display: none;">
+                                <div id="demo0-page3" class="page" style="display: none;">
                                     <div class="iban-form-holder">
                                         <div class="title"><span>MyBank.app</span></div>
                                         <div class="verifying">
@@ -127,7 +156,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="demo3-page4" class="page" style="display: none;">
+
+                                <div id="demo0-page4" class="page" style="display: none;">
                                     <div class="iban-form-holder">
                                         <div class="title"><span>MyBank.app</span></div>
                                         <div class="verifying">
@@ -136,12 +166,15 @@
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-12 domain-text-holder">
-                                                            Total &euro;24,99
+                                                            A total of &euro;24,99
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-12 domain-text-holder">
+                                                            To JJ
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-12 btn-go-holder">
-                                                            <input id="iban-pay-third-button" class="btn-go" type="button" name="submit" value="pay!" />
+                                                            <input id="iban-pay-forth-button" class="btn-go" type="button" name="submit" value="pay!" />
                                                         </div>
                                                         <div class="col-xs-12 col-md-12 btn-go-holder">
                                                             <input id="iban-cancel-third-button" class="btn-go" type="button" name="submit" value="cancel" />
@@ -152,11 +185,49 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="demo3-page5" class="page" style="display: none;">
+                                <div id="demo0-page5" class="page" style="display: none;">
                                     <div class="iban-form-holder">
                                         <div class="title"><span>MyBank.app</span></div>
                                         <div class="verifying">
-                                            Paid!<br><br>Taking you back to the vendor
+                                            Wiring money...
+                                        </div>
+                                        <div class="glass">
+                                            <!-- kudos to http://loading.io/ //--->
+                                            <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="rotate(0 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#b5ccf1;#94a9ce"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(72 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#94a9ce;#667395"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(144 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#667395;#292664"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(216 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#292664;#f5f4fa"></animate>
+                                                </circle>
+                                            </g><g transform="rotate(288 50 50)">
+                                                <circle r="5" cx="30" cy="50" transform="translate(1.38197 -1.90211)">
+                                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"></animateTransform>
+                                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#f5f4fa;#b5ccf1"></animate>
+                                                </circle>
+                                            </g></svg>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo0-page6" class="page" style="display: none;">
+                                    <div class="iban-form-holder">
+                                        <div class="title"><span>MyBank.app</span></div>
+                                        <div class="verifying">
+                                            Paid!<br><br>
                                         </div>
                                         <div>
                                             <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g transform="rotate(0 50 50)">
@@ -186,12 +257,6 @@
                                                 </circle>
                                             </g></svg>
                                         </div>
-                                    </div>
-                                </div>
-                                <div id="demo3-page6" class="page" style="display: none;">
-                                    <span>Azamon.com :)</span>
-                                    <div>
-                                        Thank you for paying! We're sending off the drones with your package.  Enjoy!
                                     </div>
                                 </div>
                             </div>
@@ -279,6 +344,9 @@
         s3.src = "js/jquery.carousel-3d.min.js";
         head.appendChild(s3);
     }
+    $(document).ready(function() {
+        addConsoleData("User receives e-mail with tokenized URL from a friend");
+    });
 </script>
 
 </body>
