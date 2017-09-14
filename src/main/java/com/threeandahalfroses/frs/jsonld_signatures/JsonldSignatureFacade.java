@@ -10,11 +10,9 @@ import info.weboftrust.ldsignatures.signer.RsaSignature2017LdSigner;
 import org.apache.commons.codec.binary.Base64;
 import org.jose4j.lang.JoseException;
 import org.json.simple.JSONObject;
-import sun.misc.BASE64Decoder;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URL;
@@ -25,13 +23,17 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 /**
  * @author Patrice Kerremans
  * @copyright 2014 Three and a half Roses
  */
 public class JsonldSignatureFacade {
+    public static final String CREATE_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
     private S3Utility s3Utility;
     private String bucketname;
 
@@ -42,28 +44,61 @@ public class JsonldSignatureFacade {
         this.bucketname = bucketname;
     }
 
-    public JSONObject sign(JSONObject jsonldObjectToSign, String privateKeyOnS3) throws JsonLdError, ParseException, JoseException {
+    public JSONObject sign(JSONObject jsonldObjectToSign, String privateKeyOnS3, String domain, String creator) throws JsonLdError, ParseException, JoseException {
 
-        JSONObject signedJsonldObject = new JSONObject();
-        URI creator = URI.create("https://s3.eu-central-1.amazonaws.com/fridayonskype/public/public.pem");
-        String created = "2017-10-24T05:33:31Z";
-        String domain = "example.com";
-        String nonce = null;
+        JSONObject signedJsonldObject = new JSONObject(jsonldObjectToSign);
+        URI creatorUri = URI.create(creator);
+        String created = (new SimpleDateFormat(CREATE_DATE_FORMAT)).format(new Date());
+        String nonce = String.valueOf (Math.abs((new Random()).nextInt()));
 
         RsaSignature2017LdSigner signer = new RsaSignature2017LdSigner(
                 toLinkedHashMap(jsonldObjectToSign),
                 getPrivateKeyFromS3(privateKeyOnS3),
-                creator,
+                creatorUri,
                 created,
                 domain,
                 nonce
         );
         LdSignature ldSignature = signer.buildLdSignature();
         LinkedHashMap<String, Object> jsonLdSignatureObject = ldSignature.buildJsonLdSignatureObject();
+        JSONObject signatureObject = new JSONObject();
         for (String key:jsonLdSignatureObject.keySet()) {
-            signedJsonldObject.put(key, jsonLdSignatureObject);
+            signatureObject.put(key, jsonLdSignatureObject.get(key));
         }
+        signedJsonldObject.put("signature", signatureObject);
         return signedJsonldObject;
+    }
+
+    public boolean verify(JSONObject jsonObjectToVerify, String privateKeyOnS3, String domain, String creator) throws ParseException, JoseException, JsonLdError {
+        if (jsonObjectToVerify != null && jsonObjectToVerify.get("signature") != null) {
+            JSONObject signatureObject = (JSONObject) jsonObjectToVerify.get("signature");
+            String signatureValueToVerify = (String) signatureObject.get("signatureValue");
+
+            URI creatorToVerify = (URI) signatureObject.get("creator");
+            if (!creator.equals(creatorToVerify.toString())) {
+                throw new RuntimeException("wrong creator");
+            }
+            String created = (String) signatureObject.get("created");
+            String domainToVerify = (String) signatureObject.get("domain");
+            if (!domain.equals(domainToVerify)) {
+                throw new RuntimeException("wrong domain");
+            }
+            String nonce = (String) signatureObject.get("nonce");
+            jsonObjectToVerify.remove("signature");
+            RsaSignature2017LdSigner signer = new RsaSignature2017LdSigner(
+                    toLinkedHashMap(jsonObjectToVerify),
+                    getPrivateKeyFromS3(privateKeyOnS3),
+                    creatorToVerify,
+                    created,
+                    domainToVerify,
+                    nonce
+            );
+            LdSignature ldSignature = signer.buildLdSignature();
+            LinkedHashMap<String, Object> jsonLdSignatureObject = ldSignature.buildJsonLdSignatureObject();
+            Object signature = jsonLdSignatureObject.get("signatureValue");
+            return signature != null;
+        }
+        return false;
     }
 
     private LinkedHashMap<String, Object> toLinkedHashMap(JSONObject jsonldObjectToSign) {
@@ -132,4 +167,6 @@ public class JsonldSignatureFacade {
             throw new RuntimeException(ex.getMessage(), ex);
         }
     }
+
+
 }
