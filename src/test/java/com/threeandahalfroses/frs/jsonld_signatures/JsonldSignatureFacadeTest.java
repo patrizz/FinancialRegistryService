@@ -46,4 +46,24 @@ public class JsonldSignatureFacadeTest {
         assertNotNull("signature null", result.get("signature"));
         assertTrue("signature should be valid", jsonldSignatureFacade.verify(result, "secret/private_pcks8", "fridayonskype.com", "https://s3.eu-central-1.amazonaws.com/fridayonskype/public/public.pem"));
     }
+
+    @Test
+    public void test_simple_verification_of_bad_signature() throws IOException, ParseException, java.text.ParseException, JoseException, JsonLdError {
+
+        String jsonString = "{\n" +
+                "  \"@context\": [\"http://schema.org/\", \"https://s3.eu-central-1.amazonaws.com/fridayonskype/public/security-v1.jsonld\"],\n" +
+                "  \"description\": \"Hello world!\",\n" +
+                "}\n";
+        JSONObject jsonObject = JSONUtility.toJSONObjectFromString(jsonString);
+        JsonldSignatureFacade jsonldSignatureFacade = new JsonldSignatureFacade(Region.getRegion(Regions.EU_CENTRAL_1), "fridayonskype", "private/private.pem");
+        JSONObject result = jsonldSignatureFacade.sign(jsonObject, "secret/private_pcks8", "fridayonskype.com", "https://s3.eu-central-1.amazonaws.com/fridayonskype/public/public.pem");
+        assertNotNull("result is null", result);
+        assertNotNull("signature null", result.get("signature"));
+        JSONObject jsonSignature = (JSONObject) result.get("signature");
+        String signatureValue = (String) jsonSignature.get("signatureValue");
+        signatureValue = "______" + signatureValue.substring(6);
+        jsonSignature.put("signatureValue", signatureValue);
+
+        assertFalse("signature should be INvalid", jsonldSignatureFacade.verify(result, "secret/private_pcks8", "fridayonskype.com", "https://s3.eu-central-1.amazonaws.com/fridayonskype/public/public.pem"));
+    }
 }

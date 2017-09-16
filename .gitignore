@@ -1,2 +1,3 @@
 .idea
 /src/main/nodejs/npm-debug.log
+/src/main/nodejs/node_modules/

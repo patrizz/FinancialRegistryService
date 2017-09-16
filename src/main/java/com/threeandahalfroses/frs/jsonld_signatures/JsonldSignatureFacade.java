@@ -96,7 +96,7 @@ public class JsonldSignatureFacade {
             LdSignature ldSignature = signer.buildLdSignature();
             LinkedHashMap<String, Object> jsonLdSignatureObject = ldSignature.buildJsonLdSignatureObject();
             Object signature = jsonLdSignatureObject.get("signatureValue");
-            return signature != null;
+            return signature != null && signatureValueToVerify != null && signatureValueToVerify.equals(signature);
         }
         return false;
     }
